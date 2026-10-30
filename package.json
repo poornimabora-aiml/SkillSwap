@@ -1,0 +1,24 @@
+{
+  "name": "skillswap-monorepo",
+  "version": "1.0.0",
+  "description": "SkillSwap – Two-Way Skill Exchange System (Database Engineering College Project)",
+  "scripts": {
+    "install:all": "cd server && npm install && cd ../client && npm install",
+    "start:server": "cd server && npm start",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build:client": "cd client && npm run build"
+  },
+  "keywords": [
+    "skillswap",
+    "database-engineering",
+    "relational-database",
+    "supabase",
+    "postgresql",
+    "express",
+    "react",
+    "tailwind"
+  ],
+  "author": "Poornima Bora",
+  "license": "MIT"
+}

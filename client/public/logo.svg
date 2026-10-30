@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" fill="none">
+  <defs>
+    <linearGradient id="skillGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="50%" stop-color="#7c3aed" />
+      <stop offset="100%" stop-color="#ec4899" />
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#4338ca" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Logo Icon: Two-Way Exchange Badge -->
+  <g transform="translate(10, 10)">
+    <!-- Base Glow -->
+    <rect x="2" y="2" width="76" height="76" rx="20" fill="url(#skillGrad)" opacity="0.15" />
+    <rect x="0" y="0" width="80" height="80" rx="22" fill="#0f172a" stroke="url(#skillGrad)" stroke-width="2.5" />
+    
+    <!-- Top-Right Loop (Teach) -->
+    <path d="M24 34 C 24 22, 56 22, 56 34 C 56 42, 44 46, 38 48" 
+          stroke="url(#skillGrad)" stroke-width="4" stroke-linecap="round" fill="none" />
+    <!-- Arrowhead 1 -->
+    <polygon points="36,44 42,49 35,53" fill="#7c3aed" />
+
+    <!-- Bottom-Left Loop (Learn) -->
+    <path d="M56 46 C 56 58, 24 58, 24 46 C 24 38, 36 34, 42 32" 
+          stroke="url(#skillGrad)" stroke-width="4" stroke-linecap="round" fill="none" />
+    <!-- Arrowhead 2 -->
+    <polygon points="44,36 38,31 45,27" fill="#4f46e5" />
+
+    <!-- Center Node / Spark of Skill Exchange -->
+    <circle cx="40" cy="40" r="4.5" fill="#ffffff" filter="url(#glow)" />
+  </g>
+
+  <!-- Logo Typography -->
+  <text x="105" y="52" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="800" fill="#0f172a" letter-spacing="-0.5">
+    Skill<tspan fill="url(#skillGrad)">Swap</tspan>
+  </text>
+  
+  <!-- Subtitle Tagline -->
+  <text x="107" y="70" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" fill="#64748b" letter-spacing="1.5">
+    TWO-WAY SKILL EXCHANGE
+  </text>
+</svg>
