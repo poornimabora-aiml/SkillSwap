@@ -34,18 +34,18 @@ export default function Login({ setActivePage }) {
         <div className="flex justify-center mb-4">
           <Logo />
         </div>
-        <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
           Sign In to SkillSwap
         </h1>
-        <p className="text-xs text-slate-600">
+        <p className="text-xs text-slate-400">
           Access your two-way skill exchange dashboard and proposals
         </p>
       </div>
 
       {/* Main Login Card */}
-      <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-xl space-y-6">
+      <div className="bg-slate-900/90 p-8 sm:p-9 rounded-3xl border border-white/[0.08] backdrop-blur-2xl shadow-2xl space-y-6">
         {error && (
-          <div className="p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
+          <div className="p-3.5 rounded-2xl bg-rose-950/60 border border-rose-500/40 text-rose-300 text-xs flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>
@@ -53,40 +53,40 @@ export default function Login({ setActivePage }) {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1.5">
-            <label className="text-xs font-bold text-slate-700 block uppercase tracking-wider">
+            <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 block">
               Email Address
             </label>
             <div className="relative flex items-center">
-              <Mail className="w-4 h-4 text-slate-600 absolute left-3.5" />
+              <Mail className="w-4 h-4 text-slate-500 absolute left-3.5" />
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="alice@skillswap.edu"
-                className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/[0.08] bg-slate-950 text-white text-xs focus:border-indigo-500 outline-none transition-colors"
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-bold text-slate-700 block uppercase tracking-wider">
+              <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 block">
                 Password
               </label>
-              <span className="text-[10px] text-indigo-600 font-semibold cursor-pointer">
+              <span className="text-[10px] text-indigo-400 font-semibold">
                 Demo: password123
               </span>
             </div>
             <div className="relative flex items-center">
-              <Lock className="w-4 h-4 text-slate-600 absolute left-3.5" />
+              <Lock className="w-4 h-4 text-slate-500 absolute left-3.5" />
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/[0.08] bg-slate-950 text-white text-xs focus:border-indigo-500 outline-none transition-colors"
               />
             </div>
           </div>
@@ -94,7 +94,7 @@ export default function Login({ setActivePage }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 text-xs font-bold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 rounded-xl shadow-md shadow-indigo-500/20 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full py-3.5 text-xs font-black text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 rounded-xl shadow-lg shadow-indigo-600/30 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
           >
             <span>{loading ? 'Authenticating...' : 'Sign In'}</span>
             <ArrowRight className="w-4 h-4" />
@@ -102,9 +102,9 @@ export default function Login({ setActivePage }) {
         </form>
 
         {/* Quick Demo Switcher Section */}
-        <div className="pt-4 border-t border-slate-100 space-y-3">
-          <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-600 uppercase tracking-wider">
-            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+        <div className="pt-4 border-t border-white/[0.08] space-y-3">
+          <div className="flex items-center gap-2 text-[11px] font-black text-indigo-400 uppercase tracking-widest">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
             <span>Fast 1-Click Demo Profiles</span>
           </div>
           <div className="space-y-2">
@@ -117,21 +117,21 @@ export default function Login({ setActivePage }) {
                   await quickSwitchUser(acc.email);
                   setActivePage('dashboard');
                 }}
-                className="w-full p-2.5 rounded-xl border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/50 text-left transition-all text-xs flex flex-col"
+                className="w-full p-3 rounded-xl bg-slate-950/70 border border-white/[0.06] hover:border-indigo-500/40 text-left transition-all text-xs flex flex-col group"
               >
-                <div className="font-bold text-slate-900">{acc.name}</div>
-                <div className="text-[10px] text-slate-600">{acc.note}</div>
+                <div className="font-bold text-white group-hover:text-indigo-300 transition-colors">{acc.name}</div>
+                <div className="text-[10px] text-slate-400">{acc.note}</div>
               </button>
             ))}
           </div>
         </div>
 
         {/* Register CTA */}
-        <div className="text-center text-xs text-slate-600 pt-2">
+        <div className="text-center text-xs text-slate-400 pt-2">
           Don't have an account yet?{' '}
           <button
             onClick={() => setActivePage('register')}
-            className="font-bold text-indigo-600 hover:underline"
+            className="font-bold text-indigo-400 hover:underline"
           >
             Register Free
           </button>

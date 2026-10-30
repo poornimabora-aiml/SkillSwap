@@ -4,22 +4,22 @@ import { Database, GitBranch, Heart, ShieldCheck, Sparkles, Globe } from 'lucide
 
 export default function Footer({ setActivePage, openDbeModal }) {
   return (
-    <footer className="bg-slate-950 text-slate-300 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <footer className="bg-slate-950 text-slate-400 border-t border-white/[0.08] relative z-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <Logo light={true} />
-            <p className="text-sm text-slate-400 max-w-sm leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-400 max-w-sm leading-relaxed">
               SkillSwap is a decentralized knowledge exchange platform where learners and mentors trade skills without money. Built as a comprehensive Database Engineering (DBE) relational architecture.
             </p>
             <div className="flex flex-wrap gap-2 pt-2">
               <span className="px-2.5 py-1 text-[11px] font-semibold bg-indigo-950/80 text-indigo-400 border border-indigo-800/50 rounded-lg">
-                React + Vite
+                React 18 + Vite
               </span>
               <span className="px-2.5 py-1 text-[11px] font-semibold bg-purple-950/80 text-purple-400 border border-purple-800/50 rounded-lg">
-                Express.js
+                Express.js REST
               </span>
               <span className="px-2.5 py-1 text-[11px] font-semibold bg-emerald-950/80 text-emerald-400 border border-emerald-800/50 rounded-lg">
                 Supabase PostgreSQL
@@ -32,8 +32,8 @@ export default function Footer({ setActivePage, openDbeModal }) {
 
           {/* Quick Links */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold text-slate-100 uppercase tracking-wider">Platform</h4>
-            <ul className="space-y-2 text-sm text-slate-400">
+            <h4 className="text-xs font-black text-white uppercase tracking-widest">Platform</h4>
+            <ul className="space-y-2.5 text-xs text-slate-400">
               <li>
                 <button onClick={() => setActivePage('home')} className="hover:text-indigo-400 transition-colors">
                   Home
@@ -47,7 +47,7 @@ export default function Footer({ setActivePage, openDbeModal }) {
               <li>
                 <button onClick={() => setActivePage('matching')} className="hover:text-indigo-400 transition-colors flex items-center gap-1.5">
                   Two-Way Match Engine
-                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-ping"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                 </button>
               </li>
               <li>
@@ -65,47 +65,39 @@ export default function Footer({ setActivePage, openDbeModal }) {
 
           {/* DBE College Project Details */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold text-slate-100 uppercase tracking-wider">Database Specs</h4>
-            <ul className="space-y-2 text-sm text-slate-400">
+            <h4 className="text-xs font-black text-white uppercase tracking-widest">Database Specs</h4>
+            <ul className="space-y-2 text-xs text-slate-400">
               <li>
-                <button onClick={openDbeModal} className="hover:text-indigo-400 text-left transition-colors flex items-center gap-1.5 text-indigo-300 font-medium">
+                <button onClick={openDbeModal} className="hover:text-indigo-300 text-left transition-colors flex items-center gap-1.5 text-indigo-400 font-bold">
                   <Database className="w-3.5 h-3.5" />
                   Interactive ER Diagram
                 </button>
               </li>
-              <li>
-                <span className="text-slate-400">Users (1:N) User_Skills</span>
-              </li>
-              <li>
-                <span className="text-slate-400">Skills (1:N) User_Skills</span>
-              </li>
-              <li>
-                <span className="text-slate-400">Exchange_Requests (1:1) Exchanges</span>
-              </li>
-              <li>
-                <span className="text-slate-400">Exchanges (1:N) Reviews</span>
-              </li>
+              <li className="font-mono text-[11px] text-slate-500">Users (1:N) User_Skills</li>
+              <li className="font-mono text-[11px] text-slate-500">Skills (1:N) User_Skills</li>
+              <li className="font-mono text-[11px] text-slate-500">Requests (1:1) Exchanges</li>
+              <li className="font-mono text-[11px] text-slate-500">Exchanges (1:N) Reviews</li>
             </ul>
           </div>
 
           {/* Developer & Deployment */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold text-slate-100 uppercase tracking-wider">Deployment</h4>
-            <div className="space-y-2 text-sm text-slate-400">
-              <p className="flex items-center gap-1.5 text-xs">
+            <h4 className="text-xs font-black text-white uppercase tracking-widest">Deployment</h4>
+            <div className="space-y-2.5 text-xs text-slate-400">
+              <p className="flex items-center gap-1.5">
                 <Globe className="w-3.5 h-3.5 text-sky-400" />
-                Frontend: <span className="text-slate-200">Cloudflare Pages</span>
+                Frontend: <span className="text-white font-medium">Cloudflare Pages</span>
               </p>
-              <p className="flex items-center gap-1.5 text-xs">
+              <p className="flex items-center gap-1.5">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                Backend: <span className="text-slate-200">Render</span>
+                Backend: <span className="text-white font-medium">Render</span>
               </p>
               <div className="pt-2">
                 <a
                   href="https://github.com/poornimabora-aiml/SkillSwap.git"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 transition-colors"
+                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 border border-white/10 text-white transition-colors"
                 >
                   <GitBranch className="w-3.5 h-3.5 text-indigo-400" />
                   GitHub Repository
@@ -116,9 +108,9 @@ export default function Footer({ setActivePage, openDbeModal }) {
         </div>
 
         {/* Bottom Banner */}
-        <div className="mt-12 pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-600 gap-4">
-          <p>© 2026 SkillSwap – Database Engineering (DBE) College Project. Designed & Developed by Poornima Bora.</p>
-          <div className="flex items-center gap-1 text-slate-600">
+        <div className="mt-14 pt-8 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+          <p>© 2026 SkillSwap – Database Engineering (DBE) College Project by Poornima Bora.</p>
+          <div className="flex items-center gap-1 text-slate-500">
             <span>Powered by Relational Matching Engine</span>
             <Sparkles className="w-3.5 h-3.5 text-indigo-400 ml-1" />
           </div>

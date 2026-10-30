@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { api } from '../services/api';
 import { 
   ArrowRightLeft, Clock, CheckCircle2, XCircle, 
-  Star, Check, X, MessageSquare, AlertCircle, Plus 
+  Star, Check, X, MessageSquare, AlertCircle, Plus, Sparkles 
 } from 'lucide-react';
 
 export default function Exchanges({ onOpenReview, setActivePage }) {
@@ -61,20 +61,20 @@ export default function Exchanges({ onOpenReview, setActivePage }) {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full inline-block mb-1">
+          <span className="text-xs font-black uppercase tracking-widest text-indigo-400 bg-indigo-950/80 border border-indigo-500/30 px-3.5 py-1.5 rounded-full inline-block mb-2">
             Exchange Management Hub
           </span>
-          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
             My Skill Exchanges & Requests
           </h1>
-          <p className="text-slate-600 text-xs sm:text-sm">
+          <p className="text-slate-400 text-xs sm:text-sm">
             Track active exchanges, respond to pending proposals, and leave verified ratings.
           </p>
         </div>
 
         <button
           onClick={() => setActivePage('explore')}
-          className="px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 shadow-md shadow-indigo-500/20 transition-all flex items-center gap-1.5 self-start sm:self-auto"
+          className="px-6 py-3 rounded-2xl text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-500 shadow-xl shadow-indigo-600/30 transition-all flex items-center gap-2 self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
           <span>Find New Partner</span>
@@ -82,7 +82,7 @@ export default function Exchanges({ onOpenReview, setActivePage }) {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-200 gap-2 overflow-x-auto pb-1">
+      <div className="flex border-b border-white/[0.08] gap-2 overflow-x-auto pb-1">
         {[
           { id: 'active', label: 'Active Exchanges', count: exchanges.active.length, icon: ArrowRightLeft },
           { id: 'pending', label: 'Received Requests', count: pendingReceived.length, icon: Clock },
@@ -95,16 +95,16 @@ export default function Exchanges({ onOpenReview, setActivePage }) {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`py-3 px-4 text-xs font-bold border-b-2 whitespace-nowrap transition-all flex items-center gap-2 ${
+              className={`py-3.5 px-4 text-xs font-bold border-b-2 whitespace-nowrap transition-all flex items-center gap-2 ${
                 active
-                  ? 'border-indigo-600 text-indigo-600'
-                  : 'border-transparent text-slate-600 hover:text-slate-900'
+                  ? 'border-indigo-500 text-indigo-400 font-black'
+                  : 'border-transparent text-slate-400 hover:text-white'
               }`}
             >
               <Icon className="w-4 h-4" />
               <span>{tab.label}</span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] ${
-                active ? 'bg-indigo-100 text-indigo-800 font-extrabold' : 'bg-slate-100 text-slate-600'
+              <span className={`px-2 py-0.5 rounded-full text-[10px] font-black ${
+                active ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/40' : 'bg-slate-900 text-slate-500'
               }`}>
                 {tab.count}
               </span>
@@ -115,9 +115,9 @@ export default function Exchanges({ onOpenReview, setActivePage }) {
 
       {/* Content */}
       {loading ? (
-        <div className="py-20 text-center space-y-3">
-          <div className="w-10 h-10 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-xs text-slate-600">Retrieving exchange history...</p>
+        <div className="py-24 text-center space-y-3">
+          <div className="w-10 h-10 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-xs text-slate-400">Retrieving exchange history...</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -125,54 +125,54 @@ export default function Exchanges({ onOpenReview, setActivePage }) {
           {/* TAB 1: ACTIVE EXCHANGES */}
           {activeTab === 'active' && (
             exchanges.active.length === 0 ? (
-              <div className="p-12 text-center bg-white rounded-3xl border border-slate-200 space-y-3">
-                <ArrowRightLeft className="w-12 h-12 text-slate-600 mx-auto" />
-                <h3 className="text-base font-bold text-slate-900">No active exchanges in progress</h3>
-                <p className="text-xs text-slate-600">
+              <div className="p-14 text-center bg-slate-900/60 rounded-3xl border border-white/[0.08] backdrop-blur-xl space-y-3">
+                <ArrowRightLeft className="w-12 h-12 text-slate-500 mx-auto" />
+                <h3 className="text-base font-bold text-white">No active exchanges in progress</h3>
+                <p className="text-xs text-slate-400">
                   Send an exchange request or accept a pending proposal to start learning.
                 </p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {exchanges.active.map((ex) => (
-                  <div key={ex.exchange_id} className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-4">
-                    <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-100 text-indigo-800 uppercase tracking-wider">
+                  <div key={ex.exchange_id} className="p-7 rounded-3xl bg-slate-900/80 border border-indigo-500/30 backdrop-blur-xl shadow-xl space-y-5">
+                    <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
+                      <span className="px-3 py-1 rounded-full text-[10px] font-black bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 uppercase tracking-widest">
                         Active Exchange
                       </span>
-                      <span className="text-[11px] text-slate-600">
+                      <span className="text-[11px] text-slate-400 font-mono">
                         Started {new Date(ex.start_date).toLocaleDateString()}
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-4">
                       <img
                         src={ex.partner.avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${ex.partner.name}`}
                         alt={ex.partner.name}
-                        className="w-12 h-12 rounded-2xl object-cover ring-2 ring-indigo-500/20"
+                        className="w-14 h-14 rounded-2xl object-cover ring-2 ring-indigo-500/40"
                       />
                       <div>
-                        <h3 className="text-base font-bold text-slate-900">{ex.partner.name}</h3>
-                        <div className="text-xs text-slate-600">{ex.partner.location} • {ex.partner.email}</div>
+                        <h3 className="text-base font-bold text-white">{ex.partner.name}</h3>
+                        <div className="text-xs text-slate-400">{ex.partner.location} • {ex.partner.email}</div>
                       </div>
                     </div>
 
                     {/* Skill Breakdown */}
-                    <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-2">
+                    <div className="p-4 rounded-2xl bg-slate-950/80 border border-white/[0.06] text-xs space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="font-semibold text-indigo-700">You Teach Them:</span>
-                        <span className="font-bold text-slate-900">{ex.you_teach}</span>
+                        <span className="font-bold text-indigo-400">You Teach Them:</span>
+                        <span className="font-semibold text-white">{ex.you_teach}</span>
                       </div>
-                      <div className="flex items-center justify-between pt-1 border-t border-slate-200">
-                        <span className="font-semibold text-purple-700">They Teach You:</span>
-                        <span className="font-bold text-slate-900">{ex.they_teach}</span>
+                      <div className="flex items-center justify-between pt-2 border-t border-white/[0.06]">
+                        <span className="font-bold text-purple-400">They Teach You:</span>
+                        <span className="font-semibold text-white">{ex.they_teach}</span>
                       </div>
                     </div>
 
                     {/* Complete Exchange CTA */}
                     <button
                       onClick={() => handleCompleteExchange(ex.exchange_id)}
-                      className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-colors shadow-sm flex items-center justify-center gap-1.5"
+                      className="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-black transition-colors shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-2"
                     >
                       <CheckCircle2 className="w-4 h-4" />
                       Mark as Completed & Leave Review
@@ -186,37 +186,37 @@ export default function Exchanges({ onOpenReview, setActivePage }) {
           {/* TAB 2: RECEIVED REQUESTS */}
           {activeTab === 'pending' && (
             requests.received.length === 0 ? (
-              <div className="p-12 text-center bg-white rounded-3xl border border-slate-200 space-y-2">
-                <Clock className="w-12 h-12 text-slate-600 mx-auto" />
-                <h3 className="text-base font-bold text-slate-900">No incoming proposals</h3>
-                <p className="text-xs text-slate-600">When someone requests to exchange skills with you, they will appear here.</p>
+              <div className="p-14 text-center bg-slate-900/60 rounded-3xl border border-white/[0.08] backdrop-blur-xl space-y-2">
+                <Clock className="w-12 h-12 text-slate-500 mx-auto" />
+                <h3 className="text-base font-bold text-white">No incoming proposals</h3>
+                <p className="text-xs text-slate-400">When someone requests to exchange skills with you, they will appear here.</p>
               </div>
             ) : (
               <div className="space-y-4">
                 {requests.received.map((req) => (
-                  <div key={req.request_id} className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-5">
+                  <div key={req.request_id} className="p-6 rounded-3xl bg-slate-900/80 border border-white/[0.08] backdrop-blur-xl shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-5">
                     <div className="flex items-start gap-4">
                       <img
                         src={req.requester_avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${req.requester_name}`}
                         alt={req.requester_name}
-                        className="w-12 h-12 rounded-2xl object-cover"
+                        className="w-12 h-12 rounded-2xl object-cover ring-2 ring-indigo-500/30"
                       />
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
-                          <h3 className="font-bold text-sm text-slate-900">{req.requester_name}</h3>
-                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                            req.status === 'Accepted' ? 'bg-emerald-100 text-emerald-800' :
-                            req.status === 'Rejected' ? 'bg-rose-100 text-rose-800' :
-                            'bg-amber-100 text-amber-800'
+                          <h3 className="font-bold text-sm text-white">{req.requester_name}</h3>
+                          <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black ${
+                            req.status === 'Accepted' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' :
+                            req.status === 'Rejected' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40' :
+                            'bg-amber-500/20 text-amber-300 border border-amber-500/40'
                           }`}>
                             {req.status}
                           </span>
                         </div>
-                        <div className="text-xs text-slate-600">
-                          Offering: <strong className="text-indigo-600">{req.offered_skill_name}</strong> | Requesting: <strong className="text-purple-600">{req.requested_skill_name}</strong>
+                        <div className="text-xs text-slate-400">
+                          Offering: <strong className="text-indigo-400">{req.offered_skill_name}</strong> | Requesting: <strong className="text-purple-400">{req.requested_skill_name}</strong>
                         </div>
                         {req.message && (
-                          <p className="text-xs text-slate-600 italic bg-slate-50 p-2 rounded-lg mt-1">
+                          <p className="text-xs text-slate-300 italic bg-slate-950 p-2.5 rounded-xl border border-white/[0.04] mt-2">
                             "{req.message}"
                           </p>
                         )}
@@ -227,19 +227,19 @@ export default function Exchanges({ onOpenReview, setActivePage }) {
                       <div className="flex items-center gap-2 shrink-0">
                         <button
                           onClick={() => handleStatusChange(req.request_id, 'Accepted')}
-                          className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl flex items-center gap-1 shadow-sm"
+                          className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs rounded-xl flex items-center gap-1.5 shadow-md"
                         >
                           <Check className="w-3.5 h-3.5" /> Accept
                         </button>
                         <button
                           onClick={() => handleStatusChange(req.request_id, 'Rejected')}
-                          className="px-4 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs rounded-xl flex items-center gap-1"
+                          className="px-5 py-2.5 bg-rose-950/60 hover:bg-rose-900/60 border border-rose-500/40 text-rose-300 font-bold text-xs rounded-xl flex items-center gap-1.5"
                         >
-                          <X className="w-3.5 h-3.5" /> Reject
+                          <X className="w-3.5 h-3.5" /> Decline
                         </button>
                       </div>
                     ) : (
-                      <span className="text-xs text-slate-600 font-medium self-end md:self-center">
+                      <span className="text-xs text-slate-500 font-medium self-end md:self-center font-mono">
                         Processed on {new Date(req.updated_at || req.created_at).toLocaleDateString()}
                       </span>
                     )}
@@ -252,31 +252,31 @@ export default function Exchanges({ onOpenReview, setActivePage }) {
           {/* TAB 3: SENT REQUESTS */}
           {activeTab === 'sent' && (
             requests.sent.length === 0 ? (
-              <div className="p-12 text-center bg-white rounded-3xl border border-slate-200 space-y-2">
-                <MessageSquare className="w-12 h-12 text-slate-600 mx-auto" />
-                <h3 className="text-base font-bold text-slate-900">No sent proposals</h3>
-                <p className="text-xs text-slate-600">Visit Explore Skills to initiate a trade with a member.</p>
+              <div className="p-14 text-center bg-slate-900/60 rounded-3xl border border-white/[0.08] backdrop-blur-xl space-y-2">
+                <MessageSquare className="w-12 h-12 text-slate-500 mx-auto" />
+                <h3 className="text-base font-bold text-white">No sent proposals</h3>
+                <p className="text-xs text-slate-400">Visit Explore Skills to initiate a trade with a member.</p>
               </div>
             ) : (
               <div className="space-y-4">
                 {requests.sent.map((req) => (
-                  <div key={req.request_id} className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm flex items-center justify-between">
+                  <div key={req.request_id} className="p-6 rounded-3xl bg-slate-900/80 border border-white/[0.08] backdrop-blur-xl shadow-lg flex items-center justify-between">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-slate-900">To: {req.receiver_name}</span>
-                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                          req.status === 'Accepted' ? 'bg-emerald-100 text-emerald-800' :
-                          req.status === 'Rejected' ? 'bg-rose-100 text-rose-800' :
-                          'bg-amber-100 text-amber-800'
+                        <span className="text-xs font-bold text-white">To: {req.receiver_name}</span>
+                        <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black ${
+                          req.status === 'Accepted' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' :
+                          req.status === 'Rejected' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40' :
+                          'bg-amber-500/20 text-amber-300 border border-amber-500/40'
                         }`}>
                           {req.status}
                         </span>
                       </div>
-                      <div className="text-xs text-slate-600 mt-1">
-                        Offered: <strong className="text-indigo-600">{req.offered_skill_name}</strong> | Requested: <strong className="text-purple-600">{req.requested_skill_name}</strong>
+                      <div className="text-xs text-slate-400 mt-1">
+                        Offered: <strong className="text-indigo-400">{req.offered_skill_name}</strong> | Requested: <strong className="text-purple-400">{req.requested_skill_name}</strong>
                       </div>
                     </div>
-                    <span className="text-xs text-slate-600">
+                    <span className="text-xs text-slate-500 font-mono">
                       Sent {new Date(req.created_at).toLocaleDateString()}
                     </span>
                   </div>
@@ -288,20 +288,20 @@ export default function Exchanges({ onOpenReview, setActivePage }) {
           {/* TAB 4: COMPLETED HISTORY */}
           {activeTab === 'completed' && (
             exchanges.completed.length === 0 ? (
-              <div className="p-12 text-center bg-white rounded-3xl border border-slate-200 space-y-2">
-                <CheckCircle2 className="w-12 h-12 text-slate-600 mx-auto" />
-                <h3 className="text-base font-bold text-slate-900">No completed exchanges yet</h3>
-                <p className="text-xs text-slate-600">Once active swaps are marked as complete, they will be archived here.</p>
+              <div className="p-14 text-center bg-slate-900/60 rounded-3xl border border-white/[0.08] backdrop-blur-xl space-y-2">
+                <CheckCircle2 className="w-12 h-12 text-slate-500 mx-auto" />
+                <h3 className="text-base font-bold text-white">No completed exchanges yet</h3>
+                <p className="text-xs text-slate-400">Once active swaps are marked as complete, they will be archived here.</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {exchanges.completed.map((ex) => (
-                  <div key={ex.exchange_id} className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-4">
-                    <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wider">
-                        Successfully Completed
+                  <div key={ex.exchange_id} className="p-7 rounded-3xl bg-slate-900/80 border border-white/[0.08] backdrop-blur-xl shadow-xl space-y-4">
+                    <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
+                      <span className="px-3 py-1 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 uppercase tracking-widest">
+                        Completed Exchange
                       </span>
-                      <span className="text-[11px] text-slate-600">
+                      <span className="text-[11px] text-slate-400 font-mono">
                         {new Date(ex.completion_date || ex.start_date).toLocaleDateString()}
                       </span>
                     </div>
@@ -310,30 +310,30 @@ export default function Exchanges({ onOpenReview, setActivePage }) {
                       <img
                         src={ex.partner.avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${ex.partner.name}`}
                         alt={ex.partner.name}
-                        className="w-11 h-11 rounded-2xl object-cover"
+                        className="w-12 h-12 rounded-2xl object-cover ring-2 ring-indigo-500/30"
                       />
                       <div>
-                        <h4 className="text-sm font-bold text-slate-900">{ex.partner.name}</h4>
-                        <div className="text-xs text-slate-600">Exchanged: {ex.you_teach} ⇄ {ex.they_teach}</div>
+                        <h4 className="text-sm font-bold text-white">{ex.partner.name}</h4>
+                        <div className="text-xs text-slate-400">Exchanged: {ex.you_teach} ⇄ {ex.they_teach}</div>
                       </div>
                     </div>
 
                     {/* Review status */}
-                    <div className="pt-2 border-t border-slate-100">
+                    <div className="pt-2 border-t border-white/[0.06]">
                       {ex.has_reviewed ? (
-                        <div className="p-3 rounded-2xl bg-indigo-50/70 border border-indigo-100 text-xs space-y-1">
-                          <div className="flex items-center gap-1 text-amber-500 font-bold">
-                            <Star className="w-3.5 h-3.5 fill-amber-500" />
+                        <div className="p-3.5 rounded-2xl bg-slate-950 border border-white/[0.06] text-xs space-y-1">
+                          <div className="flex items-center gap-1.5 text-amber-400 font-bold">
+                            <Star className="w-3.5 h-3.5 fill-amber-400" />
                             <span>Your Rating: {ex.my_review.rating} / 5</span>
                           </div>
-                          <p className="text-[11px] text-slate-700 italic">
+                          <p className="text-[11px] text-slate-300 italic">
                             "{ex.my_review.comments}"
                           </p>
                         </div>
                       ) : (
                         <button
                           onClick={() => onOpenReview(ex)}
-                          className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1 shadow-sm"
+                          className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shadow-md"
                         >
                           <Star className="w-3.5 h-3.5" />
                           Leave Review & Star Rating

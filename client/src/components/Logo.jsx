@@ -1,37 +1,41 @@
 import React from 'react';
 
-export default function Logo({ className = "h-9", showText = true, light = false }) {
+export default function Logo({ className = "h-9", showText = true, light = true }) {
   return (
-    <div className={`flex items-center gap-2.5 select-none ${className}`}>
-      {/* Icon */}
-      <div className="relative w-10 h-10 rounded-xl bg-slate-900 border border-indigo-500/30 flex items-center justify-center shadow-lg shadow-indigo-500/20 group">
-        <svg className="w-6 h-6 text-indigo-400 group-hover:rotate-180 transition-transform duration-700" viewBox="0 0 24 24" fill="none">
-          {/* Top curve */}
+    <div className={`flex items-center gap-3 select-none ${className}`}>
+      {/* Dynamic Synapse Knowledge Node */}
+      <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-950 via-slate-900 to-purple-950 border border-indigo-500/40 flex items-center justify-center shadow-lg shadow-indigo-500/25 group overflow-hidden">
+        {/* Ambient background bloom */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600/30 via-purple-600/20 to-pink-600/30 opacity-60 group-hover:opacity-100 transition-opacity" />
+        
+        <svg className="w-6 h-6 relative z-10 text-indigo-400 group-hover:rotate-180 transition-transform duration-700 ease-out" viewBox="0 0 24 24" fill="none">
+          {/* Top curve (Teaches) */}
           <path
-            d="M4 10C4 6.5 7.5 4 12 4C15.5 4 18.5 5.5 19.5 8"
-            stroke="url(#navLogoGrad)"
-            strokeWidth="2.4"
+            d="M4 10C4 6.2 7.5 3.5 12 3.5C15.8 3.5 19 5.2 20 8"
+            stroke="url(#synapseGrad)"
+            strokeWidth="2.5"
             strokeLinecap="round"
           />
-          <polygon points="17,8 20.5,8.5 20,5" fill="#a855f7" />
+          <polygon points="17.5,7.8 21,8.5 20.2,5" fill="#c084fc" />
           
-          {/* Bottom curve */}
+          {/* Bottom curve (Learns) */}
           <path
-            d="M20 14C20 17.5 16.5 20 12 20C8.5 20 5.5 18.5 4.5 16"
-            stroke="url(#navLogoGrad)"
-            strokeWidth="2.4"
+            d="M20 14C20 17.8 16.5 20.5 12 20.5C8.2 20.5 5 18.8 4 16"
+            stroke="url(#synapseGrad)"
+            strokeWidth="2.5"
             strokeLinecap="round"
           />
-          <polygon points="7,16 3.5,15.5 4,19" fill="#6366f1" />
+          <polygon points="6.5,16.2 3,15.5 3.8,19" fill="#818cf8" />
 
-          {/* Center spark */}
-          <circle cx="12" cy="12" r="2" fill="#ffffff" />
+          {/* Central Knowledge Spark */}
+          <circle cx="12" cy="12" r="2.2" fill="#ffffff" className="animate-ping opacity-75" />
+          <circle cx="12" cy="12" r="2.2" fill="#ffffff" />
           
           <defs>
-            <linearGradient id="navLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient id="synapseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#818cf8" />
-              <stop offset="50%" stopColor="#a855f7" />
-              <stop offset="100%" stopColor="#ec4899" />
+              <stop offset="50%" stopColor="#c084fc" />
+              <stop offset="100%" stopColor="#f472b6" />
             </linearGradient>
           </defs>
         </svg>
@@ -40,11 +44,14 @@ export default function Logo({ className = "h-9", showText = true, light = false
       {/* Typography */}
       {showText && (
         <div className="flex flex-col">
-          <span className={`font-extrabold text-xl tracking-tight leading-none ${light ? 'text-white' : 'text-slate-900'}`}>
-            Skill<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">Swap</span>
-          </span>
-          <span className="text-[9px] font-bold tracking-widest uppercase text-slate-600">
-            Two-Way Exchange
+          <div className="flex items-center gap-1.5 leading-none">
+            <span className="font-black text-2xl tracking-tight text-white">
+              Skill<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">Swap</span>
+            </span>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400/80 animate-pulse" />
+          </div>
+          <span className="text-[9px] font-extrabold tracking-[0.2em] uppercase text-indigo-300/80 mt-1">
+            Two-Way Skill Exchange
           </span>
         </div>
       )}

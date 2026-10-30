@@ -89,18 +89,18 @@ export default function Register({ setActivePage }) {
         <div className="flex justify-center mb-4">
           <Logo />
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
           Create Your SkillSwap Account
         </h1>
-        <p className="text-xs sm:text-sm text-slate-600">
+        <p className="text-xs sm:text-sm text-slate-400">
           Join our decentralized barter community to teach what you know and learn what you want.
         </p>
       </div>
 
       {/* Form Card */}
-      <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-xl space-y-6">
+      <div className="bg-slate-900/90 p-8 sm:p-10 rounded-3xl border border-white/[0.08] backdrop-blur-2xl shadow-2xl space-y-6">
         {error && (
-          <div className="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
+          <div className="p-3.5 rounded-2xl bg-rose-950/60 border border-rose-500/40 text-rose-300 text-xs flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>
@@ -111,69 +111,69 @@ export default function Register({ setActivePage }) {
           {/* Personal Info Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-700 block uppercase tracking-wider">
+              <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 block">
                 Full Name *
               </label>
               <div className="relative flex items-center">
-                <User className="w-4 h-4 text-slate-600 absolute left-3.5" />
+                <User className="w-4 h-4 text-slate-500 absolute left-3.5" />
                 <input
                   type="text"
                   required
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder="e.g. Poornima Bora"
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-indigo-500 outline-none"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/[0.08] bg-slate-950 text-white text-xs outline-none focus:border-indigo-500 transition-colors"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-700 block uppercase tracking-wider">
+              <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 block">
                 City / Location *
               </label>
               <div className="relative flex items-center">
-                <MapPin className="w-4 h-4 text-slate-600 absolute left-3.5" />
+                <MapPin className="w-4 h-4 text-slate-500 absolute left-3.5" />
                 <input
                   type="text"
                   required
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   placeholder="e.g. Bangalore, India"
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-indigo-500 outline-none"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/[0.08] bg-slate-950 text-white text-xs outline-none focus:border-indigo-500 transition-colors"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-700 block uppercase tracking-wider">
+              <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 block">
                 Email Address *
               </label>
               <div className="relative flex items-center">
-                <Mail className="w-4 h-4 text-slate-600 absolute left-3.5" />
+                <Mail className="w-4 h-4 text-slate-500 absolute left-3.5" />
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@college.edu"
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-indigo-500 outline-none"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/[0.08] bg-slate-950 text-white text-xs outline-none focus:border-indigo-500 transition-colors"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-700 block uppercase tracking-wider">
+              <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 block">
                 Password *
               </label>
               <div className="relative flex items-center">
-                <Lock className="w-4 h-4 text-slate-600 absolute left-3.5" />
+                <Lock className="w-4 h-4 text-slate-500 absolute left-3.5" />
                 <input
                   type="password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-indigo-500 outline-none"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/[0.08] bg-slate-950 text-white text-xs outline-none focus:border-indigo-500 transition-colors"
                 />
               </div>
             </div>
@@ -181,7 +181,7 @@ export default function Register({ setActivePage }) {
 
           {/* Short Bio */}
           <div className="space-y-1.5">
-            <label className="text-xs font-bold text-slate-700 block uppercase tracking-wider">
+            <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 block">
               Short Bio / About You
             </label>
             <textarea
@@ -189,21 +189,21 @@ export default function Register({ setActivePage }) {
               value={bio}
               onChange={(e) => setBio(e.target.value)}
               placeholder="Tell others what you are passionate about and your exchange availability..."
-              className="w-full p-3 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-indigo-500 outline-none resize-none"
+              className="w-full p-3 rounded-xl border border-white/[0.08] bg-slate-950 text-white text-xs outline-none resize-none focus:border-indigo-500"
             />
           </div>
 
           {/* SKILLS I CAN TEACH */}
-          <div className="p-4 rounded-2xl bg-indigo-50/70 border border-indigo-100 space-y-3">
+          <div className="p-5 rounded-2xl bg-slate-950/80 border border-indigo-500/30 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-indigo-950 uppercase tracking-wider flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-indigo-600"></span>
+              <span className="text-xs font-black text-indigo-400 uppercase tracking-widest flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-indigo-500"></span>
                 Skills I Can Teach (At least one)
               </span>
               <button
                 type="button"
                 onClick={addTeachRow}
-                className="text-[11px] font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1"
+                className="text-[11px] font-bold text-indigo-400 hover:text-indigo-300 flex items-center gap-1"
               >
                 <Plus className="w-3.5 h-3.5" /> Add Another
               </button>
@@ -219,7 +219,7 @@ export default function Register({ setActivePage }) {
                     next[idx].skill_id = e.target.value;
                     setTeachSkills(next);
                   }}
-                  className="flex-1 p-2 rounded-xl border border-indigo-200 text-xs bg-white text-slate-800"
+                  className="flex-1 p-3 rounded-xl border border-white/[0.08] text-xs bg-slate-900 text-white outline-none focus:border-indigo-500"
                 >
                   <option value="">Select a Teachable Skill...</option>
                   {catalogSkills.map((s) => (
@@ -236,7 +236,7 @@ export default function Register({ setActivePage }) {
                     next[idx].proficiency_level = e.target.value;
                     setTeachSkills(next);
                   }}
-                  className="w-32 p-2 rounded-xl border border-indigo-200 text-xs bg-white text-slate-800"
+                  className="w-32 p-3 rounded-xl border border-white/[0.08] text-xs bg-slate-900 text-white outline-none focus:border-indigo-500"
                 >
                   <option value="Beginner">Beginner</option>
                   <option value="Intermediate">Intermediate</option>
@@ -248,7 +248,7 @@ export default function Register({ setActivePage }) {
                   <button
                     type="button"
                     onClick={() => removeTeachRow(idx)}
-                    className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg"
+                    className="p-2 text-rose-400 hover:bg-rose-500/10 rounded-lg"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -258,16 +258,16 @@ export default function Register({ setActivePage }) {
           </div>
 
           {/* SKILLS I WANT TO LEARN */}
-          <div className="p-4 rounded-2xl bg-purple-50/70 border border-purple-100 space-y-3">
+          <div className="p-5 rounded-2xl bg-slate-950/80 border border-purple-500/30 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-purple-950 uppercase tracking-wider flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-purple-600"></span>
+              <span className="text-xs font-black text-purple-400 uppercase tracking-widest flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-purple-500"></span>
                 Skills I Want to Learn (At least one)
               </span>
               <button
                 type="button"
                 onClick={addLearnRow}
-                className="text-[11px] font-bold text-purple-600 hover:text-purple-800 flex items-center gap-1"
+                className="text-[11px] font-bold text-purple-400 hover:text-purple-300 flex items-center gap-1"
               >
                 <Plus className="w-3.5 h-3.5" /> Add Another
               </button>
@@ -283,7 +283,7 @@ export default function Register({ setActivePage }) {
                     next[idx].skill_id = e.target.value;
                     setLearnSkills(next);
                   }}
-                  className="flex-1 p-2 rounded-xl border border-purple-200 text-xs bg-white text-slate-800"
+                  className="flex-1 p-3 rounded-xl border border-white/[0.08] text-xs bg-slate-900 text-white outline-none focus:border-indigo-500"
                 >
                   <option value="">Select Target Skill...</option>
                   {catalogSkills.map((s) => (
@@ -300,7 +300,7 @@ export default function Register({ setActivePage }) {
                     next[idx].proficiency_level = e.target.value;
                     setLearnSkills(next);
                   }}
-                  className="w-32 p-2 rounded-xl border border-purple-200 text-xs bg-white text-slate-800"
+                  className="w-32 p-3 rounded-xl border border-white/[0.08] text-xs bg-slate-900 text-white outline-none focus:border-indigo-500"
                 >
                   <option value="Beginner">Beginner Goal</option>
                   <option value="Intermediate">Intermediate</option>
@@ -311,7 +311,7 @@ export default function Register({ setActivePage }) {
                   <button
                     type="button"
                     onClick={() => removeLearnRow(idx)}
-                    className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg"
+                    className="p-2 text-rose-400 hover:bg-rose-500/10 rounded-lg"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -323,18 +323,18 @@ export default function Register({ setActivePage }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 text-xs font-bold text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-700 hover:to-pink-700 rounded-xl shadow-lg shadow-indigo-500/25 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full py-4 text-xs font-black text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 rounded-xl shadow-xl shadow-indigo-600/30 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
           >
             <span>{loading ? 'Creating Account & Storing DBE Relations...' : 'Complete Registration & Start Swapping'}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
 
-        <div className="text-center text-xs text-slate-600 pt-2 border-t border-slate-100">
+        <div className="text-center text-xs text-slate-400 pt-2 border-t border-white/[0.08]">
           Already registered?{' '}
           <button
             onClick={() => setActivePage('login')}
-            className="font-bold text-indigo-600 hover:underline"
+            className="font-bold text-indigo-400 hover:underline"
           >
             Sign In here
           </button>
