@@ -2,13 +2,16 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { v4: uuidv4 } = require('uuid') || { v4: () => 'uid-' + Math.random().toString(36).substring(2, 11) };
+const crypto = require('crypto');
 const { supabase, isConnected, inMemoryDB } = require('../config/supabase');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'skillswap-super-secret-key-dbe-2026';
 
-// Helper to generate UUID if uuid package isn't used
+// Helper to generate UUID using Node.js built-in crypto
 function generateId() {
+  if (typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
   return 'user-' + Math.random().toString(36).substring(2, 10) + '-' + Date.now().toString(36);
 }
 
