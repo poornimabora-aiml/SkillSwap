@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "SkillSwap – Two-Way Skill Exchange System (Database Engineering College Project)",
   "scripts": {
+    "build": "cd client && npm run build",
     "install:all": "cd server && npm install && cd ../client && npm install",
     "start:server": "cd server && npm start",
     "dev:server": "cd server && npm run dev",
