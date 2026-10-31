@@ -11,9 +11,9 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // If no user is logged in, default to Alice Johnson so the user immediately sees a rich dashboard
+    // If no user is logged in, default to Aarav Sharma so the user immediately sees a rich dashboard
     if (!user) {
-      quickSwitchUser('alice@skillswap.edu');
+      quickSwitchUser('aarav@skillswap.edu');
     }
   }, []);
 
