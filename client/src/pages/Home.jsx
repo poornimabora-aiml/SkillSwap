@@ -280,11 +280,11 @@ export default function Home({ setActivePage, onOpenExchange, openDbeModal }) {
           {/* Quick Metrics HUD */}
           <div className="pt-6 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
             <div className="p-5 rounded-2xl bg-slate-900/60 border border-white/[0.08] backdrop-blur-xl">
-              <div className="text-3xl font-black text-white">{stats.tables.users || 7}</div>
+              <div className="text-3xl font-black text-white">{stats?.tables?.users || stats?.total_users || 12}</div>
               <div className="text-xs font-semibold text-slate-400 mt-1">Active Exchangers</div>
             </div>
             <div className="p-5 rounded-2xl bg-slate-900/60 border border-white/[0.08] backdrop-blur-xl">
-              <div className="text-3xl font-black text-indigo-400">{stats.tables.skills || 10}+</div>
+              <div className="text-3xl font-black text-indigo-400">{(stats?.tables?.skills || stats?.total_skills || 16)}+</div>
               <div className="text-xs font-semibold text-slate-400 mt-1">Catalog Domains</div>
             </div>
             <div className="p-5 rounded-2xl bg-slate-900/60 border border-white/[0.08] backdrop-blur-xl">
