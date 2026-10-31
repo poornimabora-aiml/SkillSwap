@@ -3,8 +3,8 @@
 -- Populates: Users, Skills, User_Skills, Exchange_Requests, Exchanges, Reviews
 -- ============================================================================
 
--- Clean existing seed data safely if needed (Optional: uncomment to reset)
--- TRUNCATE Reviews, Exchanges, Exchange_Requests, User_Skills, Skills, Users CASCADE;
+-- Clean existing seed data safely to prevent primary key or unique collisions
+TRUNCATE Reviews, Exchanges, Exchange_Requests, User_Skills, Skills, Users CASCADE;
 
 -- ============================================================================
 -- 1. MASTER SKILLS CATALOG (16 Distinct Skills across 10 Categories)
@@ -26,7 +26,10 @@ INSERT INTO Skills (skill_id, skill_name, category, description) VALUES
 ('11111111-1111-1111-1111-111111110014', 'C++ & Low-Level Systems', 'Programming', 'Memory management, pointers, STL algorithms, multithreading, and systems software architecture.'),
 ('11111111-1111-1111-1111-111111110015', 'French Conversational Fluency', 'Languages', 'Pronunciation phonetics, colloquial dialogue, everyday Francophone culture, and grammar foundations.'),
 ('11111111-1111-1111-1111-111111110016', 'Brand Copywriting & Content Strategy', 'Communication', 'Compelling landing page copy, value proposition messaging, email newsletters, and content marketing architectures.')
-ON CONFLICT (skill_name) DO NOTHING;
+ON CONFLICT (skill_id) DO UPDATE SET 
+    skill_name = EXCLUDED.skill_name, 
+    category = EXCLUDED.category, 
+    description = EXCLUDED.description;
 
 -- ============================================================================
 -- 2. USERS (12 Diverse Members with Real Bios, Locations & Avatars)
@@ -146,70 +149,70 @@ ON CONFLICT (email) DO NOTHING;
 -- ============================================================================
 -- 3. USER_SKILLS (M:N Map Creating Guaranteed Reciprocal & One-Way Matches)
 -- ============================================================================
-INSERT INTO User_Skills (user_skill_id, user_id, skill_id, skill_type, proficiency_level) VALUES
+INSERT INTO User_Skills (user_id, skill_id, skill_type, proficiency_level) VALUES
 -- Poornima Bora
-('us-0001', '22222222-2222-2222-2222-222222220001', '11111111-1111-1111-1111-111111110009', 'Teach', 'Advanced'),     -- ML & AI
-('us-0002', '22222222-2222-2222-2222-222222220001', '11111111-1111-1111-1111-111111110003', 'Teach', 'Expert'),       -- Database & SQL
-('us-0003', '22222222-2222-2222-2222-222222220001', '11111111-1111-1111-1111-111111110007', 'Learn', 'Beginner'),     -- Photography
-('us-0004', '22222222-2222-2222-2222-222222220001', '11111111-1111-1111-1111-111111110004', 'Learn', 'Intermediate'), -- Graphic Design
+('22222222-2222-2222-2222-222222220001', '11111111-1111-1111-1111-111111110009', 'Teach', 'Advanced'),     -- ML & AI
+('22222222-2222-2222-2222-222222220001', '11111111-1111-1111-1111-111111110003', 'Teach', 'Expert'),       -- Database & SQL
+('22222222-2222-2222-2222-222222220001', '11111111-1111-1111-1111-111111110007', 'Learn', 'Beginner'),     -- Photography
+('22222222-2222-2222-2222-222222220001', '11111111-1111-1111-1111-111111110004', 'Learn', 'Intermediate'), -- Graphic Design
 
 -- Alice Johnson (100% Reciprocal with Bob on Python/Design & with Carlos on Database/Spanish)
-('us-0005', '22222222-2222-2222-2222-222222220002', '11111111-1111-1111-1111-111111110001', 'Teach', 'Expert'),       -- Python
-('us-0006', '22222222-2222-2222-2222-222222220002', '11111111-1111-1111-1111-111111110003', 'Teach', 'Advanced'),     -- Database & SQL
-('us-0007', '22222222-2222-2222-2222-222222220002', '11111111-1111-1111-1111-111111110004', 'Learn', 'Beginner'),     -- Graphic Design
-('us-0008', '22222222-2222-2222-2222-222222220002', '11111111-1111-1111-1111-111111110006', 'Learn', 'Beginner'),     -- Spanish
+('22222222-2222-2222-2222-222222220002', '11111111-1111-1111-1111-111111110001', 'Teach', 'Expert'),       -- Python
+('22222222-2222-2222-2222-222222220002', '11111111-1111-1111-1111-111111110003', 'Teach', 'Advanced'),     -- Database & SQL
+('22222222-2222-2222-2222-222222220002', '11111111-1111-1111-1111-111111110004', 'Learn', 'Beginner'),     -- Graphic Design
+('22222222-2222-2222-2222-222222220002', '11111111-1111-1111-1111-111111110006', 'Learn', 'Beginner'),     -- Spanish
 
 -- Bob Smith (100% Reciprocal with Alice on Graphic Design/Python)
-('us-0009', '22222222-2222-2222-2222-222222220003', '11111111-1111-1111-1111-111111110004', 'Teach', 'Expert'),       -- Graphic Design
-('us-0010', '22222222-2222-2222-2222-222222220003', '11111111-1111-1111-1111-111111110001', 'Learn', 'Beginner'),     -- Python
-('us-0011', '22222222-2222-2222-2222-222222220003', '11111111-1111-1111-1111-111111110009', 'Learn', 'Beginner'),     -- ML & AI
+('22222222-2222-2222-2222-222222220003', '11111111-1111-1111-1111-111111110004', 'Teach', 'Expert'),       -- Graphic Design
+('22222222-2222-2222-2222-222222220003', '11111111-1111-1111-1111-111111110001', 'Learn', 'Beginner'),     -- Python
+('22222222-2222-2222-2222-222222220003', '11111111-1111-1111-1111-111111110009', 'Learn', 'Beginner'),     -- ML & AI
 
 -- Carlos Mendoza (100% Reciprocal with Alice on Spanish/Database & with George on Speech/C++)
-('us-0012', '22222222-2222-2222-2222-222222220004', '11111111-1111-1111-1111-111111110006', 'Teach', 'Expert'),       -- Spanish
-('us-0013', '22222222-2222-2222-2222-222222220004', '11111111-1111-1111-1111-111111110005', 'Teach', 'Advanced'),     -- Public Speaking
-('us-0014', '22222222-2222-2222-2222-222222220004', '11111111-1111-1111-1111-111111110003', 'Learn', 'Intermediate'), -- Database
-('us-0015', '22222222-2222-2222-2222-222222220004', '11111111-1111-1111-1111-111111110014', 'Learn', 'Beginner'),     -- C++
+('22222222-2222-2222-2222-222222220004', '11111111-1111-1111-1111-111111110006', 'Teach', 'Expert'),       -- Spanish
+('22222222-2222-2222-2222-222222220004', '11111111-1111-1111-1111-111111110005', 'Teach', 'Advanced'),     -- Public Speaking
+('22222222-2222-2222-2222-222222220004', '11111111-1111-1111-1111-111111110003', 'Learn', 'Intermediate'), -- Database
+('22222222-2222-2222-2222-222222220004', '11111111-1111-1111-1111-111111110014', 'Learn', 'Beginner'),     -- C++
 
 -- Diana Prince (100% Reciprocal with Evan on React/SEO & with Poornima on React/ML)
-('us-0016', '22222222-2222-2222-2222-222222220005', '11111111-1111-1111-1111-111111110002', 'Teach', 'Expert'),       -- React
-('us-0017', '22222222-2222-2222-2222-222222220005', '11111111-1111-1111-1111-111111110009', 'Learn', 'Intermediate'), -- ML & AI
-('us-0018', '22222222-2222-2222-2222-222222220005', '11111111-1111-1111-1111-111111110010', 'Learn', 'Beginner'),     -- Guitar
+('22222222-2222-2222-2222-222222220005', '11111111-1111-1111-1111-111111110002', 'Teach', 'Expert'),       -- React
+('22222222-2222-2222-2222-222222220005', '11111111-1111-1111-1111-111111110009', 'Learn', 'Intermediate'), -- ML & AI
+('22222222-2222-2222-2222-222222220005', '11111111-1111-1111-1111-111111110010', 'Learn', 'Beginner'),     -- Guitar
 
 -- Evan Wright (100% Reciprocal with Diana on SEO/React & with Fiona on SEO/Photography)
-('us-0019', '22222222-2222-2222-2222-222222220006', '11111111-1111-1111-1111-111111110008', 'Teach', 'Advanced'),     -- SEO
-('us-0020', '22222222-2222-2222-2222-222222220006', '11111111-1111-1111-1111-111111110002', 'Learn', 'Beginner'),     -- React
-('us-0021', '22222222-2222-2222-2222-222222220006', '11111111-1111-1111-1111-111111110007', 'Learn', 'Beginner'),     -- Photography
+('22222222-2222-2222-2222-222222220006', '11111111-1111-1111-1111-111111110008', 'Teach', 'Advanced'),     -- SEO
+('22222222-2222-2222-2222-222222220006', '11111111-1111-1111-1111-111111110002', 'Learn', 'Beginner'),     -- React
+('22222222-2222-2222-2222-222222220006', '11111111-1111-1111-1111-111111110007', 'Learn', 'Beginner'),     -- Photography
 
 -- Fiona Gallagher (100% Reciprocal with Poornima on Photography/AI & with Evan on Photography/SEO)
-('us-0022', '22222222-2222-2222-2222-222222220007', '11111111-1111-1111-1111-111111110007', 'Teach', 'Expert'),       -- Photography
-('us-0023', '22222222-2222-2222-2222-222222220007', '11111111-1111-1111-1111-111111110008', 'Learn', 'Beginner'),     -- SEO
-('us-0024', '22222222-2222-2222-2222-222222220007', '11111111-1111-1111-1111-111111110009', 'Learn', 'Beginner'),     -- ML & AI
+('22222222-2222-2222-2222-222222220007', '11111111-1111-1111-1111-111111110007', 'Teach', 'Expert'),       -- Photography
+('22222222-2222-2222-2222-222222220007', '11111111-1111-1111-1111-111111110008', 'Learn', 'Beginner'),     -- SEO
+('22222222-2222-2222-2222-222222220007', '11111111-1111-1111-1111-111111110009', 'Learn', 'Beginner'),     -- ML & AI
 
 -- George Zhao (100% Reciprocal with Carlos on C++/Public Speaking)
-('us-0025', '22222222-2222-2222-2222-222222220008', '11111111-1111-1111-1111-111111110014', 'Teach', 'Expert'),       -- C++
-('us-0026', '22222222-2222-2222-2222-222222220008', '11111111-1111-1111-1111-111111110005', 'Learn', 'Intermediate'), -- Public Speaking
-('us-0027', '22222222-2222-2222-2222-222222220008', '11111111-1111-1111-1111-111111110015', 'Learn', 'Beginner'),     -- French
+('22222222-2222-2222-2222-222222220008', '11111111-1111-1111-1111-111111110014', 'Teach', 'Expert'),       -- C++
+('22222222-2222-2222-2222-222222220008', '11111111-1111-1111-1111-111111110005', 'Learn', 'Intermediate'), -- Public Speaking
+('22222222-2222-2222-2222-222222220008', '11111111-1111-1111-1111-111111110015', 'Learn', 'Beginner'),     -- French
 
 -- Hannah Patel (100% Reciprocal with Kenji on Copywriting/Japanese & with Bob on Copywriting/Design)
-('us-0028', '22222222-2222-2222-2222-222222220009', '11111111-1111-1111-1111-111111110016', 'Teach', 'Advanced'),     -- Copywriting
-('us-0029', '22222222-2222-2222-2222-222222220009', '11111111-1111-1111-1111-111111110011', 'Learn', 'Beginner'),     -- Japanese
-('us-0030', '22222222-2222-2222-2222-222222220009', '11111111-1111-1111-1111-111111110004', 'Learn', 'Intermediate'), -- Graphic Design
+('22222222-2222-2222-2222-222222220009', '11111111-1111-1111-1111-111111110016', 'Teach', 'Advanced'),     -- Copywriting
+('22222222-2222-2222-2222-222222220009', '11111111-1111-1111-1111-111111110011', 'Learn', 'Beginner'),     -- Japanese
+('22222222-2222-2222-2222-222222220009', '11111111-1111-1111-1111-111111110004', 'Learn', 'Intermediate'), -- Graphic Design
 
 -- Ivan Petrov (100% Reciprocal with Diana on PowerBI/React)
-('us-0031', '22222222-2222-2222-2222-222222220010', '11111111-1111-1111-1111-111111110013', 'Teach', 'Expert'),       -- PowerBI
-('us-0032', '22222222-2222-2222-2222-222222220010', '11111111-1111-1111-1111-111111110002', 'Learn', 'Intermediate'), -- React
-('us-0033', '22222222-2222-2222-2222-222222220010', '11111111-1111-1111-1111-111111110006', 'Learn', 'Beginner'),     -- Spanish
+('22222222-2222-2222-2222-222222220010', '11111111-1111-1111-1111-111111110013', 'Teach', 'Expert'),       -- PowerBI
+('22222222-2222-2222-2222-222222220010', '11111111-1111-1111-1111-111111110002', 'Learn', 'Intermediate'), -- React
+('22222222-2222-2222-2222-222222220010', '11111111-1111-1111-1111-111111110006', 'Learn', 'Beginner'),     -- Spanish
 
 -- Julia Silva (100% Reciprocal with Kenji on Guitar/Video & with Diana on Guitar/React)
-('us-0034', '22222222-2222-2222-2222-222222220011', '11111111-1111-1111-1111-111111110010', 'Teach', 'Expert'),       -- Guitar
-('us-0035', '22222222-2222-2222-2222-222222220011', '11111111-1111-1111-1111-111111110012', 'Learn', 'Intermediate'), -- Video Editing
-('us-0036', '22222222-2222-2222-2222-222222220011', '11111111-1111-1111-1111-111111110007', 'Learn', 'Beginner'),     -- Photography
+('22222222-2222-2222-2222-222222220011', '11111111-1111-1111-1111-111111110010', 'Teach', 'Expert'),       -- Guitar
+('22222222-2222-2222-2222-222222220011', '11111111-1111-1111-1111-111111110012', 'Learn', 'Intermediate'), -- Video Editing
+('22222222-2222-2222-2222-222222220011', '11111111-1111-1111-1111-111111110007', 'Learn', 'Beginner'),     -- Photography
 
 -- Kenji Takahashi (100% Reciprocal with Hannah on Japanese/Copywriting & with Julia on Video/Guitar)
-('us-0037', '22222222-2222-2222-2222-222222220012', '11111111-1111-1111-1111-111111110011', 'Teach', 'Expert'),       -- Japanese
-('us-0038', '22222222-2222-2222-2222-222222220012', '11111111-1111-1111-1111-111111110012', 'Teach', 'Advanced'),     -- Video Editing
-('us-0039', '22222222-2222-2222-2222-222222220012', '11111111-1111-1111-1111-111111110016', 'Learn', 'Intermediate'), -- Copywriting
-('us-0040', '22222222-2222-2222-2222-222222220012', '11111111-1111-1111-1111-111111110010', 'Learn', 'Beginner')      -- Guitar
+('22222222-2222-2222-2222-222222220012', '11111111-1111-1111-1111-111111110011', 'Teach', 'Expert'),       -- Japanese
+('22222222-2222-2222-2222-222222220012', '11111111-1111-1111-1111-111111110012', 'Teach', 'Advanced'),     -- Video Editing
+('22222222-2222-2222-2222-222222220012', '11111111-1111-1111-1111-111111110016', 'Learn', 'Intermediate'), -- Copywriting
+('22222222-2222-2222-2222-222222220012', '11111111-1111-1111-1111-111111110010', 'Learn', 'Beginner')      -- Guitar
 ON CONFLICT (user_id, skill_id, skill_type) DO NOTHING;
 
 -- ============================================================================
