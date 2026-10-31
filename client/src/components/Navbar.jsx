@@ -25,10 +25,15 @@ export default function Navbar({ activePage, setActivePage, openDbeModal }) {
   };
 
   const demoUsers = [
-    { name: 'Alice Johnson', email: 'alice@skillswap.edu', role: 'Python ➔ Graphic Design' },
-    { name: 'Bob Smith', email: 'bob@skillswap.edu', role: 'Graphic Design ➔ Python (100% Match)' },
-    { name: 'Carlos Mendoza', email: 'carlos@skillswap.edu', role: 'Spanish ➔ Database Management' },
-    { name: 'Poornima Bora', email: 'poornima@skillswap.edu', role: 'AI & DBE Lead Architect' }
+    { name: 'Alice Johnson', email: 'alice@skillswap.edu', role: 'Python ➔ Graphic Design (100% Match with Bob)' },
+    { name: 'Bob Smith', email: 'bob@skillswap.edu', role: 'Graphic Design ➔ Python (100% Match with Alice)' },
+    { name: 'Carlos Mendoza', email: 'carlos@skillswap.edu', role: 'Spanish ➔ Database (100% Match with Alice)' },
+    { name: 'Diana Prince', email: 'diana@skillswap.edu', role: 'React ➔ Machine Learning (100% Match with Evan/Poornima)' },
+    { name: 'Evan Wright', email: 'evan@skillswap.edu', role: 'SEO ➔ React (100% Match with Diana)' },
+    { name: 'Fiona Gallagher', email: 'fiona@skillswap.edu', role: 'Photography ➔ AI (100% Match with Poornima)' },
+    { name: 'Hannah Patel', email: 'hannah@skillswap.edu', role: 'Copywriting ➔ Japanese (100% Match with Kenji)' },
+    { name: 'Kenji Takahashi', email: 'kenji@skillswap.edu', role: 'Japanese ➔ Copywriting (100% Match with Hannah)' },
+    { name: 'Poornima Bora', email: 'poornima@skillswap.edu', role: 'AI & Databases ➔ Photography (DBE Lead)' }
   ];
 
   return (

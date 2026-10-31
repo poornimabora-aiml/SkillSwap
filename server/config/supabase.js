@@ -19,20 +19,20 @@ if (SUPABASE_URL && SUPABASE_KEY && !SUPABASE_URL.includes('your-project')) {
     console.warn('⚠️ Supabase initialization failed, falling back to local relational store:', err.message);
   }
 } else {
-  console.log('ℹ️ No live Supabase credentials provided; running with in-memory relational DBE engine.');
+  console.log('ℹ️ Running with local relational DBE engine with pre-seeded data.');
 }
 
-// In-Memory Relational DBE Store (Mirrors PostgreSQL schema for local testing & zero-friction demo)
+// In-Memory Relational DBE Store (Mirrors PostgreSQL schema for local testing & live demo)
 const inMemoryDB = {
   users: [
     {
       user_id: '22222222-2222-2222-2222-222222220001',
       full_name: 'Poornima Bora',
       email: 'poornima@skillswap.edu',
-      password_hash: '$2a$10$wT0XkI4t0vV5P7p4r9s1le7XpP3o5G7o0u8k4X4F1B.B9C0D1E2F3', // password123
+      password_hash: '$2a$10$wT0XkI4t0vV5P7p4r9s1le7XpP3o5G7o0u8k4X4F1B.B9C0D1E2F3',
       location: 'Bangalore, India',
-      bio: 'Database Engineering student passionate about AI, relational architectures, and community knowledge sharing.',
-      avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250',
+      bio: 'Database Engineering student and AI researcher passionate about relational schemas, distributed databases, and decentralized barter economies.',
+      avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=350',
       created_at: new Date(Date.now() - 30 * 86400000).toISOString()
     },
     {
@@ -41,8 +41,8 @@ const inMemoryDB = {
       email: 'alice@skillswap.edu',
       password_hash: '$2a$10$wT0XkI4t0vV5P7p4r9s1le7XpP3o5G7o0u8k4X4F1B.B9C0D1E2F3',
       location: 'San Francisco, CA',
-      bio: 'Full-stack developer who loves building robust Python backend pipelines and exploring aesthetic graphic design.',
-      avatar_url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=250',
+      bio: 'Backend software engineer specializing in Python pipelines, microservices, and database tuning. Enthusiastic about visual UI design and languages.',
+      avatar_url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=350',
       created_at: new Date(Date.now() - 25 * 86400000).toISOString()
     },
     {
@@ -51,9 +51,9 @@ const inMemoryDB = {
       email: 'bob@skillswap.edu',
       password_hash: '$2a$10$wT0XkI4t0vV5P7p4r9s1le7XpP3o5G7o0u8k4X4F1B.B9C0D1E2F3',
       location: 'New York, NY',
-      bio: 'Visual brand designer eager to pick up computational Python skills for creative coding and generative art.',
-      avatar_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=250',
-      created_at: new Date(Date.now() - 20 * 86400000).toISOString()
+      bio: 'Product designer & design system architect with 6 years experience in Figma and brand aesthetics. Eager to master computational Python and ML algorithms.',
+      avatar_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=350',
+      created_at: new Date(Date.now() - 22 * 86400000).toISOString()
     },
     {
       user_id: '22222222-2222-2222-2222-222222220004',
@@ -61,9 +61,9 @@ const inMemoryDB = {
       email: 'carlos@skillswap.edu',
       password_hash: '$2a$10$wT0XkI4t0vV5P7p4r9s1le7XpP3o5G7o0u8k4X4F1B.B9C0D1E2F3',
       location: 'Austin, TX',
-      bio: 'Native Spanish linguist and debate coach eager to master relational database indexing and SQL optimization.',
-      avatar_url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=250',
-      created_at: new Date(Date.now() - 18 * 86400000).toISOString()
+      bio: 'Bilingual debate champion and speech coach. Avid learner looking to master relational database indexing, SQL joins, and backend architectures.',
+      avatar_url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=350',
+      created_at: new Date(Date.now() - 20 * 86400000).toISOString()
     },
     {
       user_id: '22222222-2222-2222-2222-222222220005',
@@ -71,9 +71,9 @@ const inMemoryDB = {
       email: 'diana@skillswap.edu',
       password_hash: '$2a$10$wT0XkI4t0vV5P7p4r9s1le7XpP3o5G7o0u8k4X4F1B.B9C0D1E2F3',
       location: 'Seattle, WA',
-      bio: 'Modern React & frontend engineer wanting to break into applied Machine Learning and AI algorithms.',
-      avatar_url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=250',
-      created_at: new Date(Date.now() - 15 * 86400000).toISOString()
+      bio: 'Senior Frontend Architect skilled in React 18, TypeScript, and accessible component libraries. Looking to exchange web dev for applied Machine Learning.',
+      avatar_url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=350',
+      created_at: new Date(Date.now() - 17 * 86400000).toISOString()
     },
     {
       user_id: '22222222-2222-2222-2222-222222220006',
@@ -81,9 +81,9 @@ const inMemoryDB = {
       email: 'evan@skillswap.edu',
       password_hash: '$2a$10$wT0XkI4t0vV5P7p4r9s1le7XpP3o5G7o0u8k4X4F1B.B9C0D1E2F3',
       location: 'Boston, MA',
-      bio: 'Growth marketer and SEO specialist seeking to understand React frontend architecture for technical web audits.',
-      avatar_url: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=250',
-      created_at: new Date(Date.now() - 12 * 86400000).toISOString()
+      bio: 'Growth marketer and technical SEO consultant. Keen to understand React frontend architecture to perform better technical code and rendering audits.',
+      avatar_url: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=350',
+      created_at: new Date(Date.now() - 15 * 86400000).toISOString()
     },
     {
       user_id: '22222222-2222-2222-2222-222222220007',
@@ -91,9 +91,59 @@ const inMemoryDB = {
       email: 'fiona@skillswap.edu',
       password_hash: '$2a$10$wT0XkI4t0vV5P7p4r9s1le7XpP3o5G7o0u8k4X4F1B.B9C0D1E2F3',
       location: 'Chicago, IL',
-      bio: 'Commercial photographer looking to exchange lighting techniques for organic digital marketing and brand reach.',
-      avatar_url: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=250',
+      bio: 'Commercial portrait & product photographer. Excited to barter camera manual controls and lighting setups in exchange for organic SEO growth strategies.',
+      avatar_url: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=350',
+      created_at: new Date(Date.now() - 12 * 86400000).toISOString()
+    },
+    {
+      user_id: '22222222-2222-2222-2222-222222220008',
+      full_name: 'George Zhao',
+      email: 'george@skillswap.edu',
+      password_hash: '$2a$10$wT0XkI4t0vV5P7p4r9s1le7XpP3o5G7o0u8k4X4F1B.B9C0D1E2F3',
+      location: 'Toronto, Canada',
+      bio: 'C++ systems developer who writes performance engines and low-level code. Looking to improve executive presentation delivery and learn French.',
+      avatar_url: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=350',
       created_at: new Date(Date.now() - 10 * 86400000).toISOString()
+    },
+    {
+      user_id: '22222222-2222-2222-2222-222222220009',
+      full_name: 'Hannah Patel',
+      email: 'hannah@skillswap.edu',
+      password_hash: '$2a$10$wT0XkI4t0vV5P7p4r9s1le7XpP3o5G7o0u8k4X4F1B.B9C0D1E2F3',
+      location: 'London, UK',
+      bio: 'Conversational copywriter and narrative strategist for tech startups. Looking to swap storytelling lessons for Japanese language fundamentals.',
+      avatar_url: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=350',
+      created_at: new Date(Date.now() - 8 * 86400000).toISOString()
+    },
+    {
+      user_id: '22222222-2222-2222-2222-222222220010',
+      full_name: 'Ivan Petrov',
+      email: 'ivan@skillswap.edu',
+      password_hash: '$2a$10$wT0XkI4t0vV5P7p4r9s1le7XpP3o5G7o0u8k4X4F1B.B9C0D1E2F3',
+      location: 'Berlin, Germany',
+      bio: 'Business intelligence engineer and PowerBI wizard. Wants to trade analytics dashboard design for modern React frontend development.',
+      avatar_url: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=350',
+      created_at: new Date(Date.now() - 6 * 86400000).toISOString()
+    },
+    {
+      user_id: '22222222-2222-2222-2222-222222220011',
+      full_name: 'Julia Silva',
+      email: 'julia@skillswap.edu',
+      password_hash: '$2a$10$wT0XkI4t0vV5P7p4r9s1le7XpP3o5G7o0u8k4X4F1B.B9C0D1E2F3',
+      location: 'São Paulo, Brazil',
+      bio: 'Acoustic guitarist and composer. Enthusiastic about trading music theory and fingerstyle guitar technique for video editing and DaVinci Resolve skills.',
+      avatar_url: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=80&w=350',
+      created_at: new Date(Date.now() - 5 * 86400000).toISOString()
+    },
+    {
+      user_id: '22222222-2222-2222-2222-222222220012',
+      full_name: 'Kenji Takahashi',
+      email: 'kenji@skillswap.edu',
+      password_hash: '$2a$10$wT0XkI4t0vV5P7p4r9s1le7XpP3o5G7o0u8k4X4F1B.B9C0D1E2F3',
+      location: 'Tokyo, Japan',
+      bio: 'Native Tokyo Japanese tutor and YouTube video editor. Looking to learn technical copywriting and guitar chords.',
+      avatar_url: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=350',
+      created_at: new Date(Date.now() - 4 * 86400000).toISOString()
     }
   ],
   skills: [
@@ -101,96 +151,163 @@ const inMemoryDB = {
       skill_id: '11111111-1111-1111-1111-111111110001',
       skill_name: 'Python Programming',
       category: 'Programming',
-      description: 'Core Python, OOP, scripting, data structures, and automation.'
+      description: 'Core Python, OOP, data structures, automation scripting, and algorithmic problem solving.'
     },
     {
       skill_id: '11111111-1111-1111-1111-111111110002',
-      skill_name: 'React & Frontend',
+      skill_name: 'React & Frontend Engineering',
       category: 'Web Development',
-      description: 'Modern React 18, Hooks, state management, and Tailwind CSS.'
+      description: 'Modern React 18, Hooks, state architecture, Tailwind CSS, and SPA optimization.'
     },
     {
       skill_id: '11111111-1111-1111-1111-111111110003',
-      skill_name: 'Database Management',
+      skill_name: 'Database Management & SQL',
       category: 'Database Management',
-      description: 'Relational design, PostgreSQL, MySQL, indexing, normalization.'
+      description: 'Relational database schema design, PostgreSQL, MySQL, indexing, 3NF normalization, and query optimization.'
     },
     {
       skill_id: '11111111-1111-1111-1111-111111110004',
       skill_name: 'Graphic Design & UI/UX',
       category: 'Graphic Design',
-      description: 'Figma, Adobe Illustrator, color theory, wireframing & prototyping.'
+      description: 'Figma design tokens, wireframing, high-fidelity interactive prototyping, Adobe Illustrator, and design systems.'
     },
     {
       skill_id: '11111111-1111-1111-1111-111111110005',
-      skill_name: 'Public Speaking & Debate',
+      skill_name: 'Public Speaking & Presentation',
       category: 'Communication',
-      description: 'Verbal delivery, slide decks, presentation mastery, confidence.'
+      description: 'Executive storytelling, verbal delivery, debate mastery, stage confidence, and slide design.'
     },
     {
       skill_id: '11111111-1111-1111-1111-111111110006',
-      skill_name: 'Spanish Language',
+      skill_name: 'Spanish Language Mastery',
       category: 'Languages',
-      description: 'Conversational Spanish, grammar, vocabulary, pronunciation.'
+      description: 'Conversational fluency, practical grammar, subjunctive moods, accent training, and business communication.'
     },
     {
       skill_id: '11111111-1111-1111-1111-111111110007',
-      skill_name: 'Digital Photography',
+      skill_name: 'Digital Studio Photography',
       category: 'Photography',
-      description: 'Camera manual mode, composition, lighting, and Adobe Lightroom.'
+      description: 'Manual DSLR/Mirrorless camera controls, composition, 3-point studio lighting, and Adobe Lightroom raw editing.'
     },
     {
       skill_id: '11111111-1111-1111-1111-111111110008',
-      skill_name: 'SEO & Digital Marketing',
+      skill_name: 'Technical SEO & Growth Marketing',
       category: 'Digital Marketing',
-      description: 'Growth marketing, search ranking, analytics, and social campaigns.'
+      description: 'Search engine indexing, on-page SEO audits, organic growth strategies, conversion funnels, and Google Analytics 4.'
     },
     {
       skill_id: '11111111-1111-1111-1111-111111110009',
-      skill_name: 'Machine Learning & AI',
+      skill_name: 'Machine Learning & Deep Learning',
       category: 'Artificial Intelligence',
-      description: 'Scikit-learn, Neural Networks, PyTorch, predictive modeling.'
+      description: 'Supervised learning, scikit-learn, Neural Networks, PyTorch, model evaluation metrics, and predictive pipelines.'
     },
     {
       skill_id: '11111111-1111-1111-1111-111111110010',
-      skill_name: 'Acoustic Guitar',
+      skill_name: 'Acoustic Guitar & Music Theory',
       category: 'Music & Arts',
-      description: 'Chords, fingerpicking techniques, rhythm, and song composition.'
+      description: 'Chords, fingerstyle picking technique, rhythm structures, chord progressions, and ear training.'
+    },
+    {
+      skill_id: '11111111-1111-1111-1111-111111110011',
+      skill_name: 'Japanese Language (JLPT N4/N3)',
+      category: 'Languages',
+      description: 'Hiragana, Katakana, essential Kanji characters, conversational keigo, and everyday dialogue comprehension.'
+    },
+    {
+      skill_id: '11111111-1111-1111-1111-111111110012',
+      skill_name: 'Video Editing & Motion Graphics',
+      category: 'Music & Arts',
+      description: 'Adobe Premiere Pro, DaVinci Resolve color grading, keyframe animation, pacing, and audio mastering.'
+    },
+    {
+      skill_id: '11111111-1111-1111-1111-111111110013',
+      skill_name: 'Data Science & PowerBI Analytics',
+      category: 'Database Management',
+      description: 'Exploratory data analysis, DAX queries, PowerBI executive dashboards, KPI modeling, and data storytelling.'
+    },
+    {
+      skill_id: '11111111-1111-1111-1111-111111110014',
+      skill_name: 'C++ & Low-Level Systems',
+      category: 'Programming',
+      description: 'Memory management, pointers, STL algorithms, multithreading, and systems software architecture.'
+    },
+    {
+      skill_id: '11111111-1111-1111-1111-111111110015',
+      skill_name: 'French Conversational Fluency',
+      category: 'Languages',
+      description: 'Pronunciation phonetics, colloquial dialogue, everyday Francophone culture, and grammar foundations.'
+    },
+    {
+      skill_id: '11111111-1111-1111-1111-111111110016',
+      skill_name: 'Brand Copywriting & Content Strategy',
+      category: 'Communication',
+      description: 'Compelling landing page copy, value proposition messaging, email newsletters, and content marketing architectures.'
     }
   ],
   user_skills: [
-    // Alice
-    { user_skill_id: 'us-001', user_id: '22222222-2222-2222-2222-222222220002', skill_id: '11111111-1111-1111-1111-111111110001', skill_type: 'Teach', proficiency_level: 'Advanced' },
-    { user_skill_id: 'us-002', user_id: '22222222-2222-2222-2222-222222220002', skill_id: '11111111-1111-1111-1111-111111110003', skill_type: 'Teach', proficiency_level: 'Intermediate' },
-    { user_skill_id: 'us-003', user_id: '22222222-2222-2222-2222-222222220002', skill_id: '11111111-1111-1111-1111-111111110004', skill_type: 'Learn', proficiency_level: 'Beginner' },
-    { user_skill_id: 'us-004', user_id: '22222222-2222-2222-2222-222222220002', skill_id: '11111111-1111-1111-1111-111111110006', skill_type: 'Learn', proficiency_level: 'Beginner' },
+    // Poornima Bora
+    { user_skill_id: 'us-0001', user_id: '22222222-2222-2222-2222-222222220001', skill_id: '11111111-1111-1111-1111-111111110009', skill_type: 'Teach', proficiency_level: 'Advanced' },
+    { user_skill_id: 'us-0002', user_id: '22222222-2222-2222-2222-222222220001', skill_id: '11111111-1111-1111-1111-111111110003', skill_type: 'Teach', proficiency_level: 'Expert' },
+    { user_skill_id: 'us-0003', user_id: '22222222-2222-2222-2222-222222220001', skill_id: '11111111-1111-1111-1111-111111110007', skill_type: 'Learn', proficiency_level: 'Beginner' },
+    { user_skill_id: 'us-0004', user_id: '22222222-2222-2222-2222-222222220001', skill_id: '11111111-1111-1111-1111-111111110004', skill_type: 'Learn', proficiency_level: 'Intermediate' },
 
-    // Bob
-    { user_skill_id: 'us-005', user_id: '22222222-2222-2222-2222-222222220003', skill_id: '11111111-1111-1111-1111-111111110004', skill_type: 'Teach', proficiency_level: 'Advanced' },
-    { user_skill_id: 'us-006', user_id: '22222222-2222-2222-2222-222222220003', skill_id: '11111111-1111-1111-1111-111111110001', skill_type: 'Learn', proficiency_level: 'Beginner' },
+    // Alice Johnson
+    { user_skill_id: 'us-0005', user_id: '22222222-2222-2222-2222-222222220002', skill_id: '11111111-1111-1111-1111-111111110001', skill_type: 'Teach', proficiency_level: 'Expert' },
+    { user_skill_id: 'us-0006', user_id: '22222222-2222-2222-2222-222222220002', skill_id: '11111111-1111-1111-1111-111111110003', skill_type: 'Teach', proficiency_level: 'Advanced' },
+    { user_skill_id: 'us-0007', user_id: '22222222-2222-2222-2222-222222220002', skill_id: '11111111-1111-1111-1111-111111110004', skill_type: 'Learn', proficiency_level: 'Beginner' },
+    { user_skill_id: 'us-0008', user_id: '22222222-2222-2222-2222-222222220002', skill_id: '11111111-1111-1111-1111-111111110006', skill_type: 'Learn', proficiency_level: 'Beginner' },
 
-    // Carlos
-    { user_skill_id: 'us-007', user_id: '22222222-2222-2222-2222-222222220004', skill_id: '11111111-1111-1111-1111-111111110006', skill_type: 'Teach', proficiency_level: 'Advanced' },
-    { user_skill_id: 'us-008', user_id: '22222222-2222-2222-2222-222222220004', skill_id: '11111111-1111-1111-1111-111111110005', skill_type: 'Teach', proficiency_level: 'Advanced' },
-    { user_skill_id: 'us-009', user_id: '22222222-2222-2222-2222-222222220004', skill_id: '11111111-1111-1111-1111-111111110003', skill_type: 'Learn', proficiency_level: 'Intermediate' },
+    // Bob Smith
+    { user_skill_id: 'us-0009', user_id: '22222222-2222-2222-2222-222222220003', skill_id: '11111111-1111-1111-1111-111111110004', skill_type: 'Teach', proficiency_level: 'Expert' },
+    { user_skill_id: 'us-0010', user_id: '22222222-2222-2222-2222-222222220003', skill_id: '11111111-1111-1111-1111-111111110001', skill_type: 'Learn', proficiency_level: 'Beginner' },
+    { user_skill_id: 'us-0011', user_id: '22222222-2222-2222-2222-222222220003', skill_id: '11111111-1111-1111-1111-111111110009', skill_type: 'Learn', proficiency_level: 'Beginner' },
 
-    // Diana
-    { user_skill_id: 'us-010', user_id: '22222222-2222-2222-2222-222222220005', skill_id: '11111111-1111-1111-1111-111111110002', skill_type: 'Teach', proficiency_level: 'Advanced' },
-    { user_skill_id: 'us-011', user_id: '22222222-2222-2222-2222-222222220005', skill_id: '11111111-1111-1111-1111-111111110009', skill_type: 'Learn', proficiency_level: 'Beginner' },
+    // Carlos Mendoza
+    { user_skill_id: 'us-0012', user_id: '22222222-2222-2222-2222-222222220004', skill_id: '11111111-1111-1111-1111-111111110006', skill_type: 'Teach', proficiency_level: 'Expert' },
+    { user_skill_id: 'us-0013', user_id: '22222222-2222-2222-2222-222222220004', skill_id: '11111111-1111-1111-1111-111111110005', skill_type: 'Teach', proficiency_level: 'Advanced' },
+    { user_skill_id: 'us-0014', user_id: '22222222-2222-2222-2222-222222220004', skill_id: '11111111-1111-1111-1111-111111110003', skill_type: 'Learn', proficiency_level: 'Intermediate' },
+    { user_skill_id: 'us-0015', user_id: '22222222-2222-2222-2222-222222220004', skill_id: '11111111-1111-1111-1111-111111110014', skill_type: 'Learn', proficiency_level: 'Beginner' },
 
-    // Evan
-    { user_skill_id: 'us-012', user_id: '22222222-2222-2222-2222-222222220006', skill_id: '11111111-1111-1111-1111-111111110008', skill_type: 'Teach', proficiency_level: 'Intermediate' },
-    { user_skill_id: 'us-013', user_id: '22222222-2222-2222-2222-222222220006', skill_id: '11111111-1111-1111-1111-111111110002', skill_type: 'Learn', proficiency_level: 'Beginner' },
+    // Diana Prince
+    { user_skill_id: 'us-0016', user_id: '22222222-2222-2222-2222-222222220005', skill_id: '11111111-1111-1111-1111-111111110002', skill_type: 'Teach', proficiency_level: 'Expert' },
+    { user_skill_id: 'us-0017', user_id: '22222222-2222-2222-2222-222222220005', skill_id: '11111111-1111-1111-1111-111111110009', skill_type: 'Learn', proficiency_level: 'Intermediate' },
+    { user_skill_id: 'us-0018', user_id: '22222222-2222-2222-2222-222222220005', skill_id: '11111111-1111-1111-1111-111111110010', skill_type: 'Learn', proficiency_level: 'Beginner' },
 
-    // Fiona
-    { user_skill_id: 'us-014', user_id: '22222222-2222-2222-2222-222222220007', skill_id: '11111111-1111-1111-1111-111111110007', skill_type: 'Teach', proficiency_level: 'Advanced' },
-    { user_skill_id: 'us-015', user_id: '22222222-2222-2222-2222-222222220007', skill_id: '11111111-1111-1111-1111-111111110008', skill_type: 'Learn', proficiency_level: 'Beginner' },
+    // Evan Wright
+    { user_skill_id: 'us-0019', user_id: '22222222-2222-2222-2222-222222220006', skill_id: '11111111-1111-1111-1111-111111110008', skill_type: 'Teach', proficiency_level: 'Advanced' },
+    { user_skill_id: 'us-0020', user_id: '22222222-2222-2222-2222-222222220006', skill_id: '11111111-1111-1111-1111-111111110002', skill_type: 'Learn', proficiency_level: 'Beginner' },
+    { user_skill_id: 'us-0021', user_id: '22222222-2222-2222-2222-222222220006', skill_id: '11111111-1111-1111-1111-111111110007', skill_type: 'Learn', proficiency_level: 'Beginner' },
 
-    // Poornima
-    { user_skill_id: 'us-016', user_id: '22222222-2222-2222-2222-222222220001', skill_id: '11111111-1111-1111-1111-111111110009', skill_type: 'Teach', proficiency_level: 'Advanced' },
-    { user_skill_id: 'us-017', user_id: '22222222-2222-2222-2222-222222220001', skill_id: '11111111-1111-1111-1111-111111110003', skill_type: 'Teach', proficiency_level: 'Advanced' },
-    { user_skill_id: 'us-018', user_id: '22222222-2222-2222-2222-222222220001', skill_id: '11111111-1111-1111-1111-111111110007', skill_type: 'Learn', proficiency_level: 'Beginner' },
-    { user_skill_id: 'us-019', user_id: '22222222-2222-2222-2222-222222220001', skill_id: '11111111-1111-1111-1111-111111110004', skill_type: 'Learn', proficiency_level: 'Intermediate' }
+    // Fiona Gallagher
+    { user_skill_id: 'us-0022', user_id: '22222222-2222-2222-2222-222222220007', skill_id: '11111111-1111-1111-1111-111111110007', skill_type: 'Teach', proficiency_level: 'Expert' },
+    { user_skill_id: 'us-0023', user_id: '22222222-2222-2222-2222-222222220007', skill_id: '11111111-1111-1111-1111-111111110008', skill_type: 'Learn', proficiency_level: 'Beginner' },
+    { user_skill_id: 'us-0024', user_id: '22222222-2222-2222-2222-222222220007', skill_id: '11111111-1111-1111-1111-111111110009', skill_type: 'Learn', proficiency_level: 'Beginner' },
+
+    // George Zhao
+    { user_skill_id: 'us-0025', user_id: '22222222-2222-2222-2222-222222220008', skill_id: '11111111-1111-1111-1111-111111110014', skill_type: 'Teach', proficiency_level: 'Expert' },
+    { user_skill_id: 'us-0026', user_id: '22222222-2222-2222-2222-222222220008', skill_id: '11111111-1111-1111-1111-111111110005', skill_type: 'Learn', proficiency_level: 'Intermediate' },
+    { user_skill_id: 'us-0027', user_id: '22222222-2222-2222-2222-222222220008', skill_id: '11111111-1111-1111-1111-111111110015', skill_type: 'Learn', proficiency_level: 'Beginner' },
+
+    // Hannah Patel
+    { user_skill_id: 'us-0028', user_id: '22222222-2222-2222-2222-222222220009', skill_id: '11111111-1111-1111-1111-111111110016', skill_type: 'Teach', proficiency_level: 'Advanced' },
+    { user_skill_id: 'us-0029', user_id: '22222222-2222-2222-2222-222222220009', skill_id: '11111111-1111-1111-1111-111111110011', skill_type: 'Learn', proficiency_level: 'Beginner' },
+    { user_skill_id: 'us-0030', user_id: '22222222-2222-2222-2222-222222220009', skill_id: '11111111-1111-1111-1111-111111110004', skill_type: 'Learn', proficiency_level: 'Intermediate' },
+
+    // Ivan Petrov
+    { user_skill_id: 'us-0031', user_id: '22222222-2222-2222-2222-222222220010', skill_id: '11111111-1111-1111-1111-111111110013', skill_type: 'Teach', proficiency_level: 'Expert' },
+    { user_skill_id: 'us-0032', user_id: '22222222-2222-2222-2222-222222220010', skill_id: '11111111-1111-1111-1111-111111110002', skill_type: 'Learn', proficiency_level: 'Intermediate' },
+    { user_skill_id: 'us-0033', user_id: '22222222-2222-2222-2222-222222220010', skill_id: '11111111-1111-1111-1111-111111110006', skill_type: 'Learn', proficiency_level: 'Beginner' },
+
+    // Julia Silva
+    { user_skill_id: 'us-0034', user_id: '22222222-2222-2222-2222-222222220011', skill_id: '11111111-1111-1111-1111-111111110010', skill_type: 'Teach', proficiency_level: 'Expert' },
+    { user_skill_id: 'us-0035', user_id: '22222222-2222-2222-2222-222222220011', skill_id: '11111111-1111-1111-1111-111111110012', skill_type: 'Learn', proficiency_level: 'Intermediate' },
+    { user_skill_id: 'us-0036', user_id: '22222222-2222-2222-2222-222222220011', skill_id: '11111111-1111-1111-1111-111111110007', skill_type: 'Learn', proficiency_level: 'Beginner' },
+
+    // Kenji Takahashi
+    { user_skill_id: 'us-0037', user_id: '22222222-2222-2222-2222-222222220012', skill_id: '11111111-1111-1111-1111-111111110011', skill_type: 'Teach', proficiency_level: 'Expert' },
+    { user_skill_id: 'us-0038', user_id: '22222222-2222-2222-2222-222222220012', skill_id: '11111111-1111-1111-1111-111111110012', skill_type: 'Teach', proficiency_level: 'Advanced' },
+    { user_skill_id: 'us-0039', user_id: '22222222-2222-2222-2222-222222220012', skill_id: '11111111-1111-1111-1111-111111110016', skill_type: 'Learn', proficiency_level: 'Intermediate' },
+    { user_skill_id: 'us-0040', user_id: '22222222-2222-2222-2222-222222220012', skill_id: '11111111-1111-1111-1111-111111110010', skill_type: 'Learn', proficiency_level: 'Beginner' }
   ],
   exchange_requests: [
     {
@@ -200,8 +317,8 @@ const inMemoryDB = {
       offered_skill_id: '11111111-1111-1111-1111-111111110001', // Python
       requested_skill_id: '11111111-1111-1111-1111-111111110004', // Design
       status: 'Accepted',
-      message: 'Hey Bob! I noticed you want to learn Python. I would love to teach you Python in exchange for Figma UI/UX lessons!',
-      created_at: new Date(Date.now() - 14 * 86400000).toISOString()
+      message: 'Hey Bob! I noticed you are eager to pick up Python. I would love to mentor you through algorithmic scripting in exchange for hands-on Figma design system sessions!',
+      created_at: new Date(Date.now() - 21 * 86400000).toISOString()
     },
     {
       request_id: '33333333-3333-3333-3333-333333330002',
@@ -210,36 +327,110 @@ const inMemoryDB = {
       offered_skill_id: '11111111-1111-1111-1111-111111110008', // SEO
       requested_skill_id: '11111111-1111-1111-1111-111111110002', // React
       status: 'Pending',
-      message: 'Hi Diana, would you be interested in learning growth marketing and SEO while helping me with React hooks?',
-      created_at: new Date(Date.now() - 2 * 86400000).toISOString()
+      message: 'Hi Diana! I conduct technical SEO audits and growth strategy for SaaS products. I would be thrilled to exchange 4 growth sessions for an introduction to React hooks and custom components.',
+      created_at: new Date(Date.now() - 3 * 86400000).toISOString()
     },
     {
       request_id: '33333333-3333-3333-3333-333333330003',
       requester_id: '22222222-2222-2222-2222-222222220007', // Fiona
       receiver_id: '22222222-2222-2222-2222-222222220001',  // Poornima
       offered_skill_id: '11111111-1111-1111-1111-111111110007', // Photo
-      requested_skill_id: '11111111-1111-1111-1111-111111110009', // AI
+      requested_skill_id: '11111111-1111-1111-1111-111111110009', // ML & AI
       status: 'Accepted',
-      message: 'Hello Poornima! I would love to introduce you to studio portrait photography if you can guide me through machine learning basics.',
-      created_at: new Date(Date.now() - 7 * 86400000).toISOString()
+      message: 'Hello Poornima! I would love to guide you through studio strobe lighting and RAW color grading in Lightroom in exchange for an introduction to predictive Machine Learning models.',
+      created_at: new Date(Date.now() - 8 * 86400000).toISOString()
+    },
+    {
+      request_id: '33333333-3333-3333-3333-333333330004',
+      requester_id: '22222222-2222-2222-2222-222222220004', // Carlos
+      receiver_id: '22222222-2222-2222-2222-222222220002',  // Alice
+      offered_skill_id: '11111111-1111-1111-1111-111111110006', // Spanish
+      requested_skill_id: '11111111-1111-1111-1111-111111110003', // Database
+      status: 'Accepted',
+      message: 'Hola Alice! I am looking to understand relational database normalization and index optimization for a civic project. Happy to trade fluent Spanish conversational tutoring.',
+      created_at: new Date(Date.now() - 18 * 86400000).toISOString()
+    },
+    {
+      request_id: '33333333-3333-3333-3333-333333330005',
+      requester_id: '22222222-2222-2222-2222-222222220008', // George
+      receiver_id: '22222222-2222-2222-2222-222222220004',  // Carlos
+      offered_skill_id: '11111111-1111-1111-1111-111111110014', // C++
+      requested_skill_id: '11111111-1111-1111-1111-111111110005', // Speech
+      status: 'Accepted',
+      message: 'Hi Carlos, I have to give a keynote at a systems engineering symposium and need executive public speaking coaching. Can trade deep C++ pointers and memory management lessons.',
+      created_at: new Date(Date.now() - 5 * 86400000).toISOString()
+    },
+    {
+      request_id: '33333333-3333-3333-3333-333333330006',
+      requester_id: '22222222-2222-2222-2222-222222220009', // Hannah
+      receiver_id: '22222222-2222-2222-2222-222222220012',  // Kenji
+      offered_skill_id: '11111111-1111-1111-1111-111111110016', // Copywriting
+      requested_skill_id: '11111111-1111-1111-1111-111111110011', // Japanese
+      status: 'Accepted',
+      message: 'Konnichiwa Kenji! I would love to practice everyday Japanese conversation in exchange for helping you craft high-converting English video titles and brand copy for your channel.',
+      created_at: new Date(Date.now() - 15 * 86400000).toISOString()
+    },
+    {
+      request_id: '33333333-3333-3333-3333-333333330007',
+      requester_id: '22222222-2222-2222-2222-222222220011', // Julia
+      receiver_id: '22222222-2222-2222-2222-222222220012',  // Kenji
+      offered_skill_id: '11111111-1111-1111-1111-111111110010', // Guitar
+      requested_skill_id: '11111111-1111-1111-1111-111111110012', // Video
+      status: 'Pending',
+      message: 'Hey Kenji! I saw your video editing portfolio and loved your pacing. Would you like to exchange video editing lessons for acoustic guitar fingerpicking fundamentals?',
+      created_at: new Date(Date.now() - 1 * 86400000).toISOString()
+    },
+    {
+      request_id: '33333333-3333-3333-3333-333333330008',
+      requester_id: '22222222-2222-2222-2222-222222220010', // Ivan
+      receiver_id: '22222222-2222-2222-2222-222222220005',  // Diana
+      offered_skill_id: '11111111-1111-1111-1111-111111110013', // PowerBI
+      requested_skill_id: '11111111-1111-1111-1111-111111110002', // React
+      status: 'Pending',
+      message: 'Hi Diana, I want to bridge the gap between PowerBI dashboards and custom React data visualization widgets. Could we pair up for an exchange?',
+      created_at: new Date(Date.now() - 2 * 86400000).toISOString()
     }
   ],
   exchanges: [
     {
       exchange_id: '44444444-4444-4444-4444-444444440001',
       request_id: '33333333-3333-3333-3333-333333330001',
-      start_date: new Date(Date.now() - 14 * 86400000).toISOString(),
-      completion_date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      start_date: new Date(Date.now() - 21 * 86400000).toISOString(),
+      completion_date: new Date(Date.now() - 4 * 86400000).toISOString(),
       status: 'Completed',
-      feedback: 'Exchange completed successfully! Both participants mastered 4 modules.'
+      feedback: 'Exchange completed with flying colors! Both participants mastered 5 milestone modules: Python OOP & list comprehensions, and Figma component libraries.'
     },
     {
       exchange_id: '44444444-4444-4444-4444-444444440002',
       request_id: '33333333-3333-3333-3333-333333330003',
+      start_date: new Date(Date.now() - 8 * 86400000).toISOString(),
+      completion_date: null,
+      status: 'Active',
+      feedback: 'Session 1 & 2 completed. Covered camera aperture, shutter speed tradeoffs, and dataset preprocessing for Scikit-learn.'
+    },
+    {
+      exchange_id: '44444444-4444-4444-4444-444444440003',
+      request_id: '33333333-3333-3333-3333-333333330004',
+      start_date: new Date(Date.now() - 18 * 86400000).toISOString(),
+      completion_date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      status: 'Completed',
+      feedback: 'Completed 4 in-depth sessions. Carlos gained confidence writing complex SQL joins and B-tree indexes, and Alice improved conversational Spanish fluently!'
+    },
+    {
+      exchange_id: '44444444-4444-4444-4444-444444440004',
+      request_id: '33333333-3333-3333-3333-333333330005',
       start_date: new Date(Date.now() - 5 * 86400000).toISOString(),
       completion_date: null,
       status: 'Active',
-      feedback: 'Session 1 and 2 completed. Camera manual mode covered.'
+      feedback: 'Session 1 complete. Discussed speech cadence and vocal variety. Scheduled next session for C++ smart pointers.'
+    },
+    {
+      exchange_id: '44444444-4444-4444-4444-444444440005',
+      request_id: '33333333-3333-3333-3333-333333330006',
+      start_date: new Date(Date.now() - 15 * 86400000).toISOString(),
+      completion_date: new Date(Date.now() - 3 * 86400000).toISOString(),
+      status: 'Completed',
+      feedback: 'Exchange concluded successfully. Kenji completely overhauled his English YouTube thumbnails and copy, and Hannah mastered 80 Hiragana/Katakana combinations.'
     }
   ],
   reviews: [
@@ -248,16 +439,48 @@ const inMemoryDB = {
       exchange_id: '44444444-4444-4444-4444-444444440001',
       reviewer_id: '22222222-2222-2222-2222-222222220003', // Bob reviewed Alice
       rating: 5,
-      comments: 'Alice is an incredible Python mentor! She broke down complex list comprehensions and functions with easy examples. 10/10 exchange!',
-      created_at: new Date(Date.now() - 2 * 86400000).toISOString()
+      comments: 'Alice is an incredible mentor! She broke down complex Python decorators and list comprehensions with clear visual diagrams. Now I can automate repetitive design scripts effortlessly. 10/10 exchange!',
+      created_at: new Date(Date.now() - 4 * 86400000).toISOString()
     },
     {
       review_id: '55555555-5555-5555-5555-555555550002',
       exchange_id: '44444444-4444-4444-4444-444444440001',
       reviewer_id: '22222222-2222-2222-2222-222222220002', // Alice reviewed Bob
       rating: 5,
-      comments: 'Bob taught me Figma design systems and color palettes in just 3 sessions. Now I can design my own apps. Super helpful and patient!',
-      created_at: new Date(Date.now() - 1 * 86400000).toISOString()
+      comments: 'Bob taught me Figma auto-layouts, typography scales, and token systems in just 3 practical sessions. I was able to redesign my portfolio UI immediately. Super patient, structured, and insightful!',
+      created_at: new Date(Date.now() - 3 * 86400000).toISOString()
+    },
+    {
+      review_id: '55555555-5555-5555-5555-555555550003',
+      exchange_id: '44444444-4444-4444-4444-444444440003',
+      reviewer_id: '22222222-2222-2222-2222-222222220002', // Alice reviewed Carlos
+      rating: 5,
+      comments: 'Carlos is an outstanding language instructor. He kept all our Spanish conversations engaging, corrected my grammatical quirks politely, and introduced me to real conversational idioms.',
+      created_at: new Date(Date.now() - 2 * 86400000).toISOString()
+    },
+    {
+      review_id: '55555555-5555-5555-5555-555555550004',
+      exchange_id: '44444444-4444-4444-4444-444444440003',
+      reviewer_id: '22222222-2222-2222-2222-222222220004', // Carlos reviewed Alice
+      rating: 5,
+      comments: 'I went from struggling with basic SQL queries to writing multi-table INNER and LEFT JOINs with confidence. Alice is exceptional at explaining relational theory intuitively!',
+      created_at: new Date(Date.now() - 2 * 86400000).toISOString()
+    },
+    {
+      review_id: '55555555-5555-5555-5555-555555550005',
+      exchange_id: '44444444-4444-4444-4444-444444440005',
+      reviewer_id: '22222222-2222-2222-2222-222222220012', // Kenji reviewed Hannah
+      rating: 5,
+      comments: 'Hannah helped me rework my entire channel description and video hooks. My viewer retention jumped by 24% after applying her copywriting frameworks. Highly recommend swapping skills with her!',
+      created_at: new Date(Date.now() - 3 * 86400000).toISOString()
+    },
+    {
+      review_id: '55555555-5555-5555-5555-555555550006',
+      exchange_id: '44444444-4444-4444-4444-444444440005',
+      reviewer_id: '22222222-2222-2222-2222-222222220009', // Hannah reviewed Kenji
+      rating: 5,
+      comments: 'Kenji is so supportive! Learning Japanese seemed daunting at first, but his flashcard methods and pronunciation drills made it fun and natural. Arigato gozaimasu!',
+      created_at: new Date(Date.now() - 2 * 86400000).toISOString()
     }
   ]
 };
