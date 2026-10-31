@@ -1,3 +1,5 @@
+import { DEFAULT_SKILLS } from '../data/mockData';
+
 const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
 
 async function request(endpoint, options = {}) {
@@ -33,7 +35,14 @@ export const api = {
   removeUserSkill: (payload) => request('/auth/skills/remove', { method: 'DELETE', body: JSON.stringify(payload) }),
 
   // Skills Catalog & Explore
-  getSkills: () => request('/skills'),
+  getSkills: async () => {
+    try {
+      const data = await request('/skills');
+      return Array.isArray(data) && data.length > 0 ? data : DEFAULT_SKILLS;
+    } catch {
+      return DEFAULT_SKILLS;
+    }
+  },
   getCategories: () => request('/skills/categories'),
   exploreSkills: (params = {}) => {
     const qs = new URLSearchParams(params).toString();

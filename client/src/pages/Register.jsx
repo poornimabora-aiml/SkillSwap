@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../services/api';
 import Logo from '../components/Logo';
+import { DEFAULT_SKILLS, INDIAN_SAMPLE_PROFILES } from '../data/mockData';
 import { 
   User, Mail, Lock, MapPin, BookOpen, ArrowRight, 
-  AlertCircle, CheckCircle2, Plus, Trash2 
+  AlertCircle, CheckCircle2, Plus, Trash2, Sparkles 
 } from 'lucide-react';
 
 export default function Register({ setActivePage }) {
   const { register, loading } = useAuth();
-  const [catalogSkills, setCatalogSkills] = useState([]);
+  const [catalogSkills, setCatalogSkills] = useState(DEFAULT_SKILLS);
   
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -28,8 +29,22 @@ export default function Register({ setActivePage }) {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    api.getSkills().then(setCatalogSkills).catch(console.error);
+    api.getSkills().then((res) => {
+      if (Array.isArray(res) && res.length > 0) {
+        setCatalogSkills(res);
+      }
+    }).catch(console.error);
   }, []);
+
+  const prefillProfile = (profile) => {
+    setFullName(profile.name);
+    setEmail(profile.email);
+    setPassword('password123');
+    setLocation(profile.location);
+    setBio(profile.bio);
+    setTeachSkills([{ skill_id: profile.teachSkillId, proficiency_level: profile.teachLevel }]);
+    setLearnSkills([{ skill_id: profile.learnSkillId, proficiency_level: profile.learnLevel }]);
+  };
 
   const addTeachRow = () => {
     setTeachSkills([...teachSkills, { skill_id: '', proficiency_level: 'Intermediate' }]);
@@ -99,6 +114,28 @@ export default function Register({ setActivePage }) {
 
       {/* Form Card */}
       <div className="bg-slate-900/90 p-8 sm:p-10 rounded-3xl border border-white/[0.08] backdrop-blur-2xl shadow-2xl space-y-6">
+        
+        {/* Quick Fill Indian Demo Profiles */}
+        <div className="p-4 rounded-2xl bg-indigo-950/40 border border-indigo-500/20 space-y-2.5">
+          <div className="flex items-center gap-2 text-indigo-300 text-xs font-bold">
+            <Sparkles className="w-4 h-4 text-amber-400 animate-spin" />
+            <span>Quick Fill Sample Indian Profile (1-Click Test):</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {INDIAN_SAMPLE_PROFILES.map((p, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => prefillProfile(p)}
+                className="px-3 py-1.5 rounded-xl bg-white/[0.05] hover:bg-indigo-600/30 border border-white/[0.1] hover:border-indigo-400 text-slate-300 hover:text-white text-[11px] font-semibold transition-all duration-150 flex items-center gap-1.5"
+              >
+                <span>{p.name}</span>
+                <span className="text-[10px] text-slate-400">({p.location.split(',')[0]})</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
         {error && (
           <div className="p-3.5 rounded-2xl bg-rose-950/60 border border-rose-500/40 text-rose-300 text-xs flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
