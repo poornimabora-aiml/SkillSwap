@@ -58,7 +58,12 @@ export const api = {
   // Auth
   login: async (email, password) => {
     try {
-      return await request('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) });
+      const data = await request('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) });
+      if (data?.user) {
+        data.user.teach_skills = data.user.teach_skills || data.user.skills_teach || [];
+        data.user.learn_skills = data.user.learn_skills || data.user.skills_learn || [];
+      }
+      return data;
     } catch {
       // Fallback: check locally registered users first
       const stored = getStoredUsers().find(u => u.email.toLowerCase() === email.toLowerCase());
@@ -69,7 +74,14 @@ export const api = {
       // Check mock users catalog
       const mock = MOCK_USERS.find(u => u.email.toLowerCase() === email.toLowerCase());
       if (mock) {
-        return { token: 'local_jwt_' + Date.now(), user: mock };
+        return {
+          token: 'local_jwt_' + Date.now(),
+          user: {
+            ...mock,
+            teach_skills: mock.skills_teach || [],
+            learn_skills: mock.skills_learn || []
+          }
+        };
       }
 
       // Default fallback account
@@ -85,6 +97,12 @@ export const api = {
         ],
         skills_learn: [
           { skill_id: '11111111-1111-1111-1111-111111110004', skill_name: 'Graphic Design & UI/UX', category: 'Graphic Design', proficiency_level: 'Beginner' }
+        ],
+        teach_skills: [
+          { skill_id: '11111111-1111-1111-1111-111111110001', skill_name: 'Python Programming', category: 'Programming', proficiency_level: 'Expert' }
+        ],
+        learn_skills: [
+          { skill_id: '11111111-1111-1111-1111-111111110004', skill_name: 'Graphic Design & UI/UX', category: 'Graphic Design', proficiency_level: 'Beginner' }
         ]
       };
       return { token: 'local_jwt_' + Date.now(), user: fallbackUser };
@@ -93,7 +111,40 @@ export const api = {
 
   register: async (payload) => {
     try {
-      return await request('/auth/register', { method: 'POST', body: JSON.stringify(payload) });
+      const data = await request('/auth/register', { method: 'POST', body: JSON.stringify(payload) });
+      if (data?.user) {
+        const teachDetails = (payload.skills_teach || []).map(st => {
+          const meta = DEFAULT_SKILLS.find(s => s.skill_id === st.skill_id);
+          return {
+            user_skill_id: 'us_t_' + Date.now() + Math.random(),
+            skill_id: st.skill_id,
+            skill_name: meta ? meta.skill_name : 'Custom Skill',
+            category: meta ? meta.category : 'General',
+            proficiency_level: st.proficiency_level
+          };
+        });
+        const learnDetails = (payload.skills_learn || []).map(sl => {
+          const meta = DEFAULT_SKILLS.find(s => s.skill_id === sl.skill_id);
+          return {
+            user_skill_id: 'us_l_' + Date.now() + Math.random(),
+            skill_id: sl.skill_id,
+            skill_name: meta ? meta.skill_name : 'Custom Skill',
+            category: meta ? meta.category : 'General',
+            proficiency_level: sl.proficiency_level
+          };
+        });
+
+        data.user.teach_skills = (Array.isArray(data.user.teach_skills) && data.user.teach_skills.length > 0)
+          ? data.user.teach_skills
+          : ((Array.isArray(data.user.skills_teach) && data.user.skills_teach.length > 0) ? data.user.skills_teach : teachDetails);
+        data.user.learn_skills = (Array.isArray(data.user.learn_skills) && data.user.learn_skills.length > 0)
+          ? data.user.learn_skills
+          : ((Array.isArray(data.user.skills_learn) && data.user.skills_learn.length > 0) ? data.user.skills_learn : learnDetails);
+
+        data.user.skills_teach = data.user.teach_skills;
+        data.user.skills_learn = data.user.learn_skills;
+      }
+      return data;
     } catch {
       // Seamless Fallback: create complete client session so registration NEVER fails
       const teachDetails = (payload.skills_teach || []).map(st => {
@@ -127,6 +178,8 @@ export const api = {
         avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=350',
         skills_teach: teachDetails,
         skills_learn: learnDetails,
+        teach_skills: teachDetails,
+        learn_skills: learnDetails,
         created_at: new Date().toISOString()
       };
 
@@ -141,12 +194,23 @@ export const api = {
 
   getProfile: async (userId) => {
     try {
-      return await request(`/auth/profile/${userId}`);
+      const data = await request(`/auth/profile/${userId}`);
+      if (data) {
+        data.teach_skills = data.teach_skills || data.skills_teach || [];
+        data.learn_skills = data.learn_skills || data.skills_learn || [];
+      }
+      return data;
     } catch {
       const stored = getStoredUsers().find(u => u.user_id === userId);
       if (stored) return stored;
       const mock = MOCK_USERS.find(u => u.user_id === userId);
-      if (mock) return mock;
+      if (mock) {
+        return {
+          ...mock,
+          teach_skills: mock.skills_teach || [],
+          learn_skills: mock.skills_learn || []
+        };
+      }
       const current = localStorage.getItem('skillswap_user');
       return current ? JSON.parse(current) : MOCK_USERS[0];
     }
@@ -185,8 +249,10 @@ export const api = {
         };
         if (payload.skill_type === 'Teach') {
           parsed.skills_teach = [...(parsed.skills_teach || []), newSkill];
+          parsed.teach_skills = [...(parsed.teach_skills || []), newSkill];
         } else {
           parsed.skills_learn = [...(parsed.skills_learn || []), newSkill];
+          parsed.learn_skills = [...(parsed.learn_skills || []), newSkill];
         }
         localStorage.setItem('skillswap_user', JSON.stringify(parsed));
         saveStoredUser(parsed);
@@ -203,7 +269,9 @@ export const api = {
       if (current) {
         const parsed = JSON.parse(current);
         parsed.skills_teach = (parsed.skills_teach || []).filter(s => s.user_skill_id !== payload.user_skill_id && s.skill_id !== payload.skill_id);
+        parsed.teach_skills = parsed.skills_teach;
         parsed.skills_learn = (parsed.skills_learn || []).filter(s => s.user_skill_id !== payload.user_skill_id && s.skill_id !== payload.skill_id);
+        parsed.learn_skills = parsed.skills_learn;
         localStorage.setItem('skillswap_user', JSON.stringify(parsed));
         saveStoredUser(parsed);
       }
@@ -256,55 +324,64 @@ export const api = {
   // Two-Way Matching Engine
   getMatchRecommendations: async (userId) => {
     try {
-      return await request(`/matches/recommendations/${userId}`);
+      const data = await request(`/matches/recommendations/${userId}`);
+      if (data && Array.isArray(data.matches)) {
+        return data;
+      }
+      return { matches: Array.isArray(data) ? data : [] };
     } catch {
       const current = localStorage.getItem('skillswap_user');
       const currentUser = current ? JSON.parse(current) : MOCK_USERS[0];
-      const myTeachIds = (currentUser.skills_teach || []).map(s => s.skill_id);
-      const myLearnIds = (currentUser.skills_learn || []).map(s => s.skill_id);
+      const myTeachIds = (currentUser.skills_teach || currentUser.teach_skills || []).map(s => s.skill_id);
+      const myLearnIds = (currentUser.skills_learn || currentUser.learn_skills || []).map(s => s.skill_id);
 
-      // Compare with MOCK_EXPLORE_TEACHERS
-      const mutualMatches = [];
-      const oneWayMatches = [];
-
+      const allMatches = [];
       MOCK_EXPLORE_TEACHERS.forEach(teacher => {
         if (teacher.user_id === currentUser.user_id) return;
         const teachesWhatIWant = myLearnIds.includes(teacher.skill_id);
-        
-        // Find if teacher wants what I teach
         const mockUser = MOCK_USERS.find(u => u.user_id === teacher.user_id);
         const teacherLearnIds = mockUser ? (mockUser.skills_learn || []).map(l => l.skill_id) : [];
         const wantsWhatITeach = myTeachIds.some(tid => teacherLearnIds.includes(tid));
 
+        const matchingTeach = (currentUser.skills_teach || currentUser.teach_skills || []).find(st => teacherLearnIds.includes(st.skill_id));
+
         if (teachesWhatIWant && wantsWhatITeach) {
-          const matchingTeachSkill = currentUser.skills_teach.find(st => teacherLearnIds.includes(st.skill_id));
-          mutualMatches.push({
-            user_b_id: teacher.user_id,
-            user_b_name: teacher.user_name,
-            user_b_location: teacher.location,
-            user_b_avatar: teacher.avatar_url,
-            user_a_teaches_skill_name: matchingTeachSkill ? matchingTeachSkill.skill_name : 'Your Specialty',
-            user_b_teaches_skill_name: teacher.skill_name,
-            match_percentage: 100,
-            compatibility_label: 'Perfect Reciprocal Barter'
-          });
-        } else if (teachesWhatIWant) {
-          oneWayMatches.push({
+          allMatches.push({
             partner_id: teacher.user_id,
             partner_name: teacher.user_name,
+            partner_email: teacher.user_email,
             partner_location: teacher.location,
             partner_avatar: teacher.avatar_url,
-            skill_offered: teacher.skill_name,
-            category: teacher.category,
-            proficiency_level: teacher.proficiency_level,
-            match_type: 'One-Way Learning Opportunity'
+            rating: 5.0,
+            match_percentage: 100,
+            compatibility_label: '100% Perfect Mutual Match',
+            is_reciprocal: true,
+            you_teach_them: [matchingTeach || { skill_name: 'Your Specialty' }],
+            they_teach_you: [{ skill_name: teacher.skill_name }]
+          });
+        } else {
+          allMatches.push({
+            partner_id: teacher.user_id,
+            partner_name: teacher.user_name,
+            partner_email: teacher.user_email,
+            partner_location: teacher.location,
+            partner_avatar: teacher.avatar_url,
+            rating: 5.0,
+            match_percentage: teachesWhatIWant ? 50 : 50,
+            compatibility_label: '50% Learning Opportunity',
+            is_reciprocal: false,
+            you_teach_them: matchingTeach ? [matchingTeach] : [{ skill_name: 'General Knowledge' }],
+            they_teach_you: [{ skill_name: teacher.skill_name }]
           });
         }
       });
 
       return {
-        mutual_matches: mutualMatches,
-        one_way_matches: oneWayMatches
+        user_id: userId,
+        total_matches: allMatches.length,
+        mutual_count: allMatches.filter(m => m.is_reciprocal).length,
+        one_way_count: allMatches.filter(m => !m.is_reciprocal).length,
+        matches: allMatches
       };
     }
   },
@@ -373,7 +450,14 @@ export const api = {
 
   getMyRequests: async (userId) => {
     try {
-      return await request(`/exchanges/requests/${userId}`);
+      const data = await request(`/exchanges/requests/${userId}`);
+      if (data && typeof data === 'object') {
+        return {
+          sent: Array.isArray(data.sent) ? data.sent : [],
+          received: Array.isArray(data.received) ? data.received : []
+        };
+      }
+      return { sent: [], received: [] };
     } catch {
       const stored = getStoredRequests();
       const sampleReceived = [
@@ -411,23 +495,66 @@ export const api = {
 
   getUserExchanges: async (userId) => {
     try {
-      return await request(`/exchanges/user/${userId}`);
+      const data = await request(`/exchanges/user/${userId}`);
+      if (data && typeof data === 'object' && !Array.isArray(data)) {
+        return {
+          active: Array.isArray(data.active) ? data.active : [],
+          completed: Array.isArray(data.completed) ? data.completed : [],
+          all: Array.isArray(data.all) ? data.all : []
+        };
+      }
+      if (Array.isArray(data)) {
+        return {
+          active: data.filter(e => e.status === 'Active'),
+          completed: data.filter(e => e.status === 'Completed'),
+          all: data
+        };
+      }
+      return { active: [], completed: [], all: [] };
     } catch {
-      return [
+      const defaultActive = [
         {
-          exchange_id: 'exc_001',
-          start_date: new Date(Date.now() - 21 * 86400000).toISOString(),
-          completion_date: new Date(Date.now() - 4 * 86400000).toISOString(),
-          status: 'Completed',
-          feedback: 'Completed 5 milestones in Python OOP and Figma tokens.',
-          partner_id: '22222222-2222-2222-2222-222222220003',
-          partner_name: 'Priya Patel',
-          partner_location: 'Mumbai, Maharashtra',
-          partner_avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=350',
-          offered_skill_name: 'Python Programming',
-          requested_skill_name: 'Graphic Design & UI/UX'
+          exchange_id: 'exc_active_1',
+          request_id: 'req_sample_1',
+          start_date: new Date(Date.now() - 5 * 86400000).toISOString(),
+          completion_date: null,
+          status: 'Active',
+          feedback: 'Session 1 & 2 completed successfully. Scheduled next milestone.',
+          partner: {
+            user_id: '22222222-2222-2222-2222-222222220003',
+            name: 'Priya Patel',
+            location: 'Mumbai, Maharashtra',
+            avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=350',
+            email: 'priya@skillswap.edu'
+          },
+          you_teach: 'Database Management & SQL',
+          they_teach: 'Graphic Design & UI/UX'
         }
       ];
+      const defaultCompleted = [
+        {
+          exchange_id: 'exc_comp_1',
+          request_id: 'req_sample_2',
+          start_date: new Date(Date.now() - 21 * 86400000).toISOString(),
+          completion_date: new Date(Date.now() - 3 * 86400000).toISOString(),
+          status: 'Completed',
+          feedback: 'Exchange completed with flying colors! Both participants mastered 5 milestones.',
+          partner: {
+            user_id: '22222222-2222-2222-2222-222222220002',
+            name: 'Aarav Sharma',
+            location: 'Hyderabad, Telangana',
+            avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=350',
+            email: 'aarav@skillswap.edu'
+          },
+          you_teach: 'Python Programming',
+          they_teach: 'Database Management & SQL'
+        }
+      ];
+      return {
+        active: defaultActive,
+        completed: defaultCompleted,
+        all: [...defaultActive, ...defaultCompleted]
+      };
     }
   },
 

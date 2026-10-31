@@ -111,6 +111,14 @@ export default function Profile({ targetUserId, setActivePage, onOpenExchange })
     );
   }
 
+  const teachSkills = Array.isArray(profile?.teach_skills)
+    ? profile.teach_skills
+    : (Array.isArray(profile?.skills_teach) ? profile.skills_teach : []);
+
+  const learnSkills = Array.isArray(profile?.learn_skills)
+    ? profile.learn_skills
+    : (Array.isArray(profile?.skills_learn) ? profile.skills_learn : []);
+
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
       
@@ -137,7 +145,7 @@ export default function Profile({ targetUserId, setActivePage, onOpenExchange })
               </span>
               <span className="flex items-center gap-1.5 font-bold text-slate-200">
                 <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                {profile.average_rating} ({profile.total_reviews} reviews)
+                {profile.average_rating || '5.0'} ({profile.total_reviews || 0} reviews)
               </span>
             </div>
             <p className="text-xs text-slate-300 italic pt-1 max-w-lg">
@@ -152,8 +160,8 @@ export default function Profile({ targetUserId, setActivePage, onOpenExchange })
               partner_id: profile.user_id,
               partner_name: profile.full_name,
               partner_avatar: profile.avatar_url,
-              all_partner_teaches: profile.teach_skills,
-              all_partner_learns: profile.learn_skills
+              all_partner_teaches: teachSkills,
+              all_partner_learns: learnSkills
             })}
             className="px-6 py-3 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white font-extrabold text-xs rounded-2xl shadow-xl shadow-indigo-600/30 flex items-center gap-2 self-start md:self-auto relative z-10"
           >
@@ -173,11 +181,11 @@ export default function Profile({ targetUserId, setActivePage, onOpenExchange })
               <span className="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
               Skills Offered (Teaches)
             </span>
-            <span className="text-xs font-bold text-indigo-300">{profile.teach_skills.length} skills</span>
+            <span className="text-xs font-bold text-indigo-300">{teachSkills.length} skills</span>
           </div>
 
           <div className="space-y-3">
-            {profile.teach_skills.map((s) => (
+            {teachSkills.map((s) => (
               <div
                 key={s.user_skill_id || s.skill_id}
                 className="p-3.5 rounded-2xl bg-slate-950/70 border border-indigo-500/20 flex items-center justify-between"
@@ -212,11 +220,11 @@ export default function Profile({ targetUserId, setActivePage, onOpenExchange })
               <span className="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
               Desired Skills (Learns)
             </span>
-            <span className="text-xs font-bold text-purple-300">{profile.learn_skills.length} skills</span>
+            <span className="text-xs font-bold text-purple-300">{learnSkills.length} skills</span>
           </div>
 
           <div className="space-y-3">
-            {profile.learn_skills.map((s) => (
+            {learnSkills.map((s) => (
               <div
                 key={s.user_skill_id || s.skill_id}
                 className="p-3.5 rounded-2xl bg-slate-950/70 border border-purple-500/20 flex items-center justify-between"
